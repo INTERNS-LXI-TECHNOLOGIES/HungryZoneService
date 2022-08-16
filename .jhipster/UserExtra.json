@@ -1,0 +1,75 @@
+{
+  "applications": "*",
+  "changelogDate": "20220810135709",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "user_extra",
+  "fields": [
+    {
+      "fieldName": "phoneNumber",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "address",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "locationAtXAxis",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "locationAtYAxis",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "UserExtra",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "user",
+      "ownerSide": true,
+      "relationshipName": "user",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "cart",
+      "otherEntityRelationshipName": "user",
+      "ownerSide": false,
+      "relationshipName": "cart",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "food",
+      "otherEntityRelationshipName": "donor",
+      "relationshipName": "food",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "order",
+      "otherEntityRelationshipName": "donor",
+      "relationshipName": "donatedOrders",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "order",
+      "otherEntityRelationshipName": "recipient",
+      "relationshipName": "recievedOrders",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "chat",
+      "otherEntityRelationshipName": "users",
+      "ownerSide": false,
+      "relationshipName": "chats",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

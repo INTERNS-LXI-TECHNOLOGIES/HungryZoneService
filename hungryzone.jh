@@ -1,0 +1,78 @@
+entity UserExtra {
+	phoneNumber Long required,
+	address String required,
+	locationAtXAxis String required,
+	locationAtYAxis String required
+}
+
+entity Category {
+	name String required
+}
+
+entity Food {
+	name String required,
+	expiry ZonedDateTime required,
+	remainingQty Integer required,
+	description String
+}
+
+entity Order {
+	orderDate ZonedDateTime required,
+	quantity Integer required,
+	orderStatus String required
+}
+
+entity Cart {}
+
+entity CartItem {
+	quantity Integer required
+}
+
+entity Chat {
+	chatDate ZonedDateTime required,
+	textMessage String required
+}
+
+relationship OneToOne {
+	UserExtra{user} to User
+}
+
+relationship OneToOne {
+	Cart{user} to UserExtra{cart}
+}
+
+relationship OneToMany {
+	Order{food} to Food
+}
+
+relationship OneToMany {
+	Cart{cartItems} to CartItem
+}
+
+relationship ManyToOne {
+	CartItem{food} to Food
+}
+
+relationship ManyToOne {
+	Food{category} to Category{food}
+}
+
+relationship ManyToOne {
+	Food{donor} to UserExtra{food}
+}
+
+relationship ManyToOne {
+	Order{donor} to UserExtra{donatedOrders}
+}
+
+relationship ManyToOne {
+	Order{recipient} to UserExtra{recievedOrders}
+}
+
+relationship ManyToMany {
+	Chat{users} to UserExtra{chats}
+}
+
+dto * with mapstruct
+service all with serviceImpl
+

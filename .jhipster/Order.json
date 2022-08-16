@@ -1,0 +1,50 @@
+{
+  "applications": "*",
+  "changelogDate": "20220810135712",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "jhi_order",
+  "fields": [
+    {
+      "fieldName": "orderDate",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "quantity",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "orderStatus",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Order",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "food",
+      "otherEntityRelationshipName": "order",
+      "relationshipName": "food",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "userExtra",
+      "otherEntityRelationshipName": "donatedOrders",
+      "relationshipName": "donor",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "userExtra",
+      "otherEntityRelationshipName": "recievedOrders",
+      "relationshipName": "recipient",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}
