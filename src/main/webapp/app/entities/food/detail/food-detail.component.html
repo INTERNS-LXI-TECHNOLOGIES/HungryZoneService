@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="food">
+      <h2 data-cy="foodDetailsHeading"><span>Food</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ food.id }}</span>
+        </dd>
+        <dt><span>Name</span></dt>
+        <dd>
+          <span>{{ food.name }}</span>
+        </dd>
+        <dt><span>Expiry</span></dt>
+        <dd>
+          <span>{{ food.expiry | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Remaining Qty</span></dt>
+        <dd>
+          <span>{{ food.remainingQty }}</span>
+        </dd>
+        <dt><span>Description</span></dt>
+        <dd>
+          <span>{{ food.description }}</span>
+        </dd>
+        <dt><span>Image Url</span></dt>
+        <dd>
+          <span>{{ food.imageUrl }}</span>
+        </dd>
+        <dt><span>Category</span></dt>
+        <dd>
+          <div *ngIf="food.category">
+            <a [routerLink]="['/category', food.category.id, 'view']">{{ food.category?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Donor</span></dt>
+        <dd>
+          <div *ngIf="food.donor">
+            <a [routerLink]="['/user-extra', food.donor.id, 'view']">{{ food.donor?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Order</span></dt>
+        <dd>
+          <div *ngIf="food.order">
+            <a [routerLink]="['/order', food.order.id, 'view']">{{ food.order?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/food', food.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="chat">
+      <h2 data-cy="chatDetailsHeading"><span>Chat</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ chat.id }}</span>
+        </dd>
+        <dt><span>Chat Date</span></dt>
+        <dd>
+          <span>{{ chat.chatDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Text Message</span></dt>
+        <dd>
+          <span>{{ chat.textMessage }}</span>
+        </dd>
+        <dt><span>Users</span></dt>
+        <dd>
+          <span *ngFor="let users of chat.users; let last = last">
+            <a [routerLink]="['/user-extra', users.id, 'view']">{{ users.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/chat', chat.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

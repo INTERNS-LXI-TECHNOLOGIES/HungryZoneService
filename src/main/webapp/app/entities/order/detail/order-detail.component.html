@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="order">
+      <h2 data-cy="orderDetailsHeading"><span>Order</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ order.id }}</span>
+        </dd>
+        <dt><span>Order Date</span></dt>
+        <dd>
+          <span>{{ order.orderDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Quantity</span></dt>
+        <dd>
+          <span>{{ order.quantity }}</span>
+        </dd>
+        <dt><span>Order Status</span></dt>
+        <dd>
+          <span>{{ order.orderStatus }}</span>
+        </dd>
+        <dt><span>Donor</span></dt>
+        <dd>
+          <div *ngIf="order.donor">
+            <a [routerLink]="['/user-extra', order.donor.id, 'view']">{{ order.donor?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Recipient</span></dt>
+        <dd>
+          <div *ngIf="order.recipient">
+            <a [routerLink]="['/user-extra', order.recipient.id, 'view']">{{ order.recipient?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/order', order.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
