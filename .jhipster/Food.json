@@ -46,8 +46,9 @@
     {
       "otherEntityName": "order",
       "otherEntityRelationshipName": "food",
+      "ownerSide": false,
       "relationshipName": "order",
-      "relationshipType": "many-to-one"
+      "relationshipType": "many-to-many"
     }
   ],
   "service": "serviceImpl"

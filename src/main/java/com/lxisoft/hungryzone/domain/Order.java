@@ -34,10 +34,6 @@ public class Order implements Serializable {
     @Column(name = "order_status", nullable = false)
     private String orderStatus;
 
-    @OneToMany(mappedBy = "order")
-    @JsonIgnoreProperties(value = { "category", "donor", "order" }, allowSetters = true)
-    private Set<Food> foods = new HashSet<>();
-
     @ManyToOne
     @JsonIgnoreProperties(value = { "user", "cart", "foods", "donatedOrders", "recievedOrders", "chats" }, allowSetters = true)
     private UserExtra donor;
@@ -45,6 +41,15 @@ public class Order implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = { "user", "cart", "foods", "donatedOrders", "recievedOrders", "chats" }, allowSetters = true)
     private UserExtra recipient;
+
+    @ManyToMany
+    @JoinTable(
+        name = "rel_jhi_order__food",
+        joinColumns = @JoinColumn(name = "jhi_order_id"),
+        inverseJoinColumns = @JoinColumn(name = "food_id")
+    )
+    @JsonIgnoreProperties(value = { "category", "donor", "orders" }, allowSetters = true)
+    private Set<Food> foods = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -100,37 +105,6 @@ public class Order implements Serializable {
         this.orderStatus = orderStatus;
     }
 
-    public Set<Food> getFoods() {
-        return this.foods;
-    }
-
-    public void setFoods(Set<Food> foods) {
-        if (this.foods != null) {
-            this.foods.forEach(i -> i.setOrder(null));
-        }
-        if (foods != null) {
-            foods.forEach(i -> i.setOrder(this));
-        }
-        this.foods = foods;
-    }
-
-    public Order foods(Set<Food> foods) {
-        this.setFoods(foods);
-        return this;
-    }
-
-    public Order addFood(Food food) {
-        this.foods.add(food);
-        food.setOrder(this);
-        return this;
-    }
-
-    public Order removeFood(Food food) {
-        this.foods.remove(food);
-        food.setOrder(null);
-        return this;
-    }
-
     public UserExtra getDonor() {
         return this.donor;
     }
@@ -154,6 +128,31 @@ public class Order implements Serializable {
 
     public Order recipient(UserExtra userExtra) {
         this.setRecipient(userExtra);
+        return this;
+    }
+
+    public Set<Food> getFoods() {
+        return this.foods;
+    }
+
+    public void setFoods(Set<Food> foods) {
+        this.foods = foods;
+    }
+
+    public Order foods(Set<Food> foods) {
+        this.setFoods(foods);
+        return this;
+    }
+
+    public Order addFood(Food food) {
+        this.foods.add(food);
+        food.getOrders().add(this);
+        return this;
+    }
+
+    public Order removeFood(Food food) {
+        this.foods.remove(food);
+        food.getOrders().remove(this);
         return this;
     }
 

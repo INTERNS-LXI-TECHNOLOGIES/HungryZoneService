@@ -42,10 +42,6 @@ relationship OneToOne {
 }
 
 relationship OneToMany {
-	Order{food} to Food
-}
-
-relationship OneToMany {
 	Cart{cartItems} to CartItem
 }
 
@@ -71,6 +67,10 @@ relationship ManyToOne {
 
 relationship ManyToMany {
 	Chat{users} to UserExtra{chats}
+}
+
+relationship ManyToMany {
+	Order to Food
 }
 
 dto * with mapstruct

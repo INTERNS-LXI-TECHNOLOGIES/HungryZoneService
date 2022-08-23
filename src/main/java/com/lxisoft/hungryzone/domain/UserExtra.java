@@ -46,15 +46,15 @@ public class UserExtra implements Serializable {
     private Cart cart;
 
     @OneToMany(mappedBy = "donor")
-    @JsonIgnoreProperties(value = { "category", "donor", "order" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "category", "donor", "orders" }, allowSetters = true)
     private Set<Food> foods = new HashSet<>();
 
     @OneToMany(mappedBy = "donor")
-    @JsonIgnoreProperties(value = { "foods", "donor", "recipient" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "donor", "recipient", "foods" }, allowSetters = true)
     private Set<Order> donatedOrders = new HashSet<>();
 
     @OneToMany(mappedBy = "recipient")
-    @JsonIgnoreProperties(value = { "foods", "donor", "recipient" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "donor", "recipient", "foods" }, allowSetters = true)
     private Set<Order> recievedOrders = new HashSet<>();
 
     @ManyToMany(mappedBy = "users")

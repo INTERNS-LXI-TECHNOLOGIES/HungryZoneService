@@ -27,8 +27,6 @@ public class FoodDTO implements Serializable {
 
     private UserExtraDTO donor;
 
-    private OrderDTO order;
-
     public Long getId() {
         return id;
     }
@@ -85,14 +83,6 @@ public class FoodDTO implements Serializable {
         this.donor = donor;
     }
 
-    public OrderDTO getOrder() {
-        return order;
-    }
-
-    public void setOrder(OrderDTO order) {
-        this.order = order;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -125,7 +115,6 @@ public class FoodDTO implements Serializable {
             ", description='" + getDescription() + "'" +
             ", category=" + getCategory() +
             ", donor=" + getDonor() +
-            ", order=" + getOrder() +
             "}";
     }
 }
