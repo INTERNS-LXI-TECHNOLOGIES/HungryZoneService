@@ -12,7 +12,7 @@ public class UserExtraDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private Long phoneNumber;
+    private String phoneNumber;
 
     @NotNull
     private String address;
@@ -33,11 +33,11 @@ public class UserExtraDTO implements Serializable {
         this.id = id;
     }
 
-    public Long getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Long phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -99,7 +99,7 @@ public class UserExtraDTO implements Serializable {
     public String toString() {
         return "UserExtraDTO{" +
             "id=" + getId() +
-            ", phoneNumber=" + getPhoneNumber() +
+            ", phoneNumber='" + getPhoneNumber() + "'" +
             ", address='" + getAddress() + "'" +
             ", locationAtXAxis='" + getLocationAtXAxis() + "'" +
             ", locationAtYAxis='" + getLocationAtYAxis() + "'" +

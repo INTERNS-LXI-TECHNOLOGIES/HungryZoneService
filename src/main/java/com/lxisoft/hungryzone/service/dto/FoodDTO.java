@@ -23,9 +23,13 @@ public class FoodDTO implements Serializable {
 
     private String description;
 
+    private String imageUrl;
+
     private CategoryDTO category;
 
     private UserExtraDTO donor;
+
+    private OrderDTO order;
 
     public Long getId() {
         return id;
@@ -67,6 +71,14 @@ public class FoodDTO implements Serializable {
         this.description = description;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public CategoryDTO getCategory() {
         return category;
     }
@@ -81,6 +93,14 @@ public class FoodDTO implements Serializable {
 
     public void setDonor(UserExtraDTO donor) {
         this.donor = donor;
+    }
+
+    public OrderDTO getOrder() {
+        return order;
+    }
+
+    public void setOrder(OrderDTO order) {
+        this.order = order;
     }
 
     @Override
@@ -113,8 +133,10 @@ public class FoodDTO implements Serializable {
             ", expiry='" + getExpiry() + "'" +
             ", remainingQty=" + getRemainingQty() +
             ", description='" + getDescription() + "'" +
+            ", imageUrl='" + getImageUrl() + "'" +
             ", category=" + getCategory() +
             ", donor=" + getDonor() +
+            ", order=" + getOrder() +
             "}";
     }
 }

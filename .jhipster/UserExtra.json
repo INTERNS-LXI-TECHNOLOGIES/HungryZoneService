@@ -1,13 +1,13 @@
 {
   "applications": "*",
-  "changelogDate": "20220810135709",
+  "changelogDate": "20220816102201",
   "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "user_extra",
   "fields": [
     {
       "fieldName": "phoneNumber",
-      "fieldType": "Long",
+      "fieldType": "String",
       "fieldValidateRules": ["required"]
     },
     {
@@ -60,7 +60,7 @@
     {
       "otherEntityName": "order",
       "otherEntityRelationshipName": "recipient",
-      "relationshipName": "receivedOrders",
+      "relationshipName": "recievedOrders",
       "relationshipType": "one-to-many"
     },
     {

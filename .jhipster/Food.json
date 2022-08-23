@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20220810135711",
+  "changelogDate": "20220816102203",
   "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "food",
@@ -22,6 +22,10 @@
     },
     {
       "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "imageUrl",
       "fieldType": "String"
     }
   ],
@@ -46,9 +50,8 @@
     {
       "otherEntityName": "order",
       "otherEntityRelationshipName": "food",
-      "ownerSide": false,
       "relationshipName": "order",
-      "relationshipType": "many-to-many"
+      "relationshipType": "many-to-one"
     }
   ],
   "service": "serviceImpl"

@@ -31,8 +31,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class UserExtraResourceIT {
 
-    private static final Long DEFAULT_PHONE_NUMBER = 1L;
-    private static final Long UPDATED_PHONE_NUMBER = 2L;
+    private static final String DEFAULT_PHONE_NUMBER = "AAAAAAAAAA";
+    private static final String UPDATED_PHONE_NUMBER = "BBBBBBBBBB";
 
     private static final String DEFAULT_ADDRESS = "AAAAAAAAAA";
     private static final String UPDATED_ADDRESS = "BBBBBBBBBB";
@@ -221,7 +221,7 @@ class UserExtraResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(userExtra.getId().intValue())))
-            .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER.intValue())))
+            .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER)))
             .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS)))
             .andExpect(jsonPath("$.[*].locationAtXAxis").value(hasItem(DEFAULT_LOCATION_AT_X_AXIS)))
             .andExpect(jsonPath("$.[*].locationAtYAxis").value(hasItem(DEFAULT_LOCATION_AT_Y_AXIS)));
@@ -239,7 +239,7 @@ class UserExtraResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(userExtra.getId().intValue()))
-            .andExpect(jsonPath("$.phoneNumber").value(DEFAULT_PHONE_NUMBER.intValue()))
+            .andExpect(jsonPath("$.phoneNumber").value(DEFAULT_PHONE_NUMBER))
             .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS))
             .andExpect(jsonPath("$.locationAtXAxis").value(DEFAULT_LOCATION_AT_X_AXIS))
             .andExpect(jsonPath("$.locationAtYAxis").value(DEFAULT_LOCATION_AT_Y_AXIS));

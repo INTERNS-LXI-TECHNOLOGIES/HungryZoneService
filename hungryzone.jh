@@ -1,19 +1,21 @@
 entity UserExtra {
-	phoneNumber Long required,
+	phoneNumber String required,
 	address String required,
 	locationAtXAxis String required,
 	locationAtYAxis String required
 }
 
 entity Category {
-	name String required
+	name String required,
+	imageUrl String
 }
 
 entity Food {
 	name String required,
 	expiry ZonedDateTime required,
 	remainingQty Integer required,
-	description String
+	description String,
+	imageUrl String
 }
 
 entity Order {
@@ -42,6 +44,10 @@ relationship OneToOne {
 }
 
 relationship OneToMany {
+	Order{food} to Food
+}
+
+relationship OneToMany {
 	Cart{cartItems} to CartItem
 }
 
@@ -62,15 +68,11 @@ relationship ManyToOne {
 }
 
 relationship ManyToOne {
-	Order{recipient} to UserExtra{receivedOrders}
+	Order{recipient} to UserExtra{recievedOrders}
 }
 
 relationship ManyToMany {
 	Chat{users} to UserExtra{chats}
-}
-
-relationship ManyToMany {
-	Order to Food
 }
 
 dto * with mapstruct

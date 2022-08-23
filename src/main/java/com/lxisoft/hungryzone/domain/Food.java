@@ -3,8 +3,6 @@ package com.lxisoft.hungryzone.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -37,17 +35,20 @@ public class Food implements Serializable {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @ManyToOne
     @JsonIgnoreProperties(value = { "foods" }, allowSetters = true)
     private Category category;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "user", "cart", "foods", "donatedOrders", "receivedOrders", "chats" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user", "cart", "foods", "donatedOrders", "recievedOrders", "chats" }, allowSetters = true)
     private UserExtra donor;
 
-    @ManyToMany(mappedBy = "foods")
-    @JsonIgnoreProperties(value = { "donor", "recipient", "foods" }, allowSetters = true)
-    private Set<Order> orders = new HashSet<>();
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "foods", "donor", "recipient" }, allowSetters = true)
+    private Order order;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -116,6 +117,19 @@ public class Food implements Serializable {
         this.description = description;
     }
 
+    public String getImageUrl() {
+        return this.imageUrl;
+    }
+
+    public Food imageUrl(String imageUrl) {
+        this.setImageUrl(imageUrl);
+        return this;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public Category getCategory() {
         return this.category;
     }
@@ -142,34 +156,16 @@ public class Food implements Serializable {
         return this;
     }
 
-    public Set<Order> getOrders() {
-        return this.orders;
+    public Order getOrder() {
+        return this.order;
     }
 
-    public void setOrders(Set<Order> orders) {
-        if (this.orders != null) {
-            this.orders.forEach(i -> i.removeFood(this));
-        }
-        if (orders != null) {
-            orders.forEach(i -> i.addFood(this));
-        }
-        this.orders = orders;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
-    public Food orders(Set<Order> orders) {
-        this.setOrders(orders);
-        return this;
-    }
-
-    public Food addOrder(Order order) {
-        this.orders.add(order);
-        order.getFoods().add(this);
-        return this;
-    }
-
-    public Food removeOrder(Order order) {
-        this.orders.remove(order);
-        order.getFoods().remove(this);
+    public Food order(Order order) {
+        this.setOrder(order);
         return this;
     }
 
@@ -201,6 +197,7 @@ public class Food implements Serializable {
             ", expiry='" + getExpiry() + "'" +
             ", remainingQty=" + getRemainingQty() +
             ", description='" + getDescription() + "'" +
+            ", imageUrl='" + getImageUrl() + "'" +
             "}";
     }
 }

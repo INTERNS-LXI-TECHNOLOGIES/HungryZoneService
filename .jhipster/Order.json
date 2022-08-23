@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20220810135712",
+  "changelogDate": "20220816102204",
   "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "jhi_order",
@@ -28,6 +28,12 @@
   "readOnly": false,
   "relationships": [
     {
+      "otherEntityName": "food",
+      "otherEntityRelationshipName": "order",
+      "relationshipName": "food",
+      "relationshipType": "one-to-many"
+    },
+    {
       "otherEntityName": "userExtra",
       "otherEntityRelationshipName": "donatedOrders",
       "relationshipName": "donor",
@@ -35,16 +41,9 @@
     },
     {
       "otherEntityName": "userExtra",
-      "otherEntityRelationshipName": "receivedOrders",
+      "otherEntityRelationshipName": "recievedOrders",
       "relationshipName": "recipient",
       "relationshipType": "many-to-one"
-    },
-    {
-      "otherEntityName": "food",
-      "otherEntityRelationshipName": "order",
-      "ownerSide": true,
-      "relationshipName": "food",
-      "relationshipType": "many-to-many"
     }
   ],
   "service": "serviceImpl"

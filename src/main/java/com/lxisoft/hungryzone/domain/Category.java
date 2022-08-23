@@ -25,8 +25,11 @@ public class Category implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @OneToMany(mappedBy = "category")
-    @JsonIgnoreProperties(value = { "category", "donor", "orders" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "category", "donor", "order" }, allowSetters = true)
     private Set<Food> foods = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -55,6 +58,19 @@ public class Category implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImageUrl() {
+        return this.imageUrl;
+    }
+
+    public Category imageUrl(String imageUrl) {
+        this.setImageUrl(imageUrl);
+        return this;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Set<Food> getFoods() {
@@ -113,6 +129,7 @@ public class Category implements Serializable {
         return "Category{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", imageUrl='" + getImageUrl() + "'" +
             "}";
     }
 }

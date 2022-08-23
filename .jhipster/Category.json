@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20220810135710",
+  "changelogDate": "20220816102202",
   "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "category",
@@ -9,6 +9,10 @@
       "fieldName": "name",
       "fieldType": "String",
       "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "imageUrl",
+      "fieldType": "String"
     }
   ],
   "fluentMethods": true,

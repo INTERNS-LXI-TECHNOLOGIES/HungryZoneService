@@ -48,6 +48,9 @@ class FoodResourceIT {
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
+    private static final String DEFAULT_IMAGE_URL = "AAAAAAAAAA";
+    private static final String UPDATED_IMAGE_URL = "BBBBBBBBBB";
+
     private static final String ENTITY_API_URL = "/api/foods";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -79,7 +82,8 @@ class FoodResourceIT {
             .name(DEFAULT_NAME)
             .expiry(DEFAULT_EXPIRY)
             .remainingQty(DEFAULT_REMAINING_QTY)
-            .description(DEFAULT_DESCRIPTION);
+            .description(DEFAULT_DESCRIPTION)
+            .imageUrl(DEFAULT_IMAGE_URL);
         return food;
     }
 
@@ -94,7 +98,8 @@ class FoodResourceIT {
             .name(UPDATED_NAME)
             .expiry(UPDATED_EXPIRY)
             .remainingQty(UPDATED_REMAINING_QTY)
-            .description(UPDATED_DESCRIPTION);
+            .description(UPDATED_DESCRIPTION)
+            .imageUrl(UPDATED_IMAGE_URL);
         return food;
     }
 
@@ -121,6 +126,7 @@ class FoodResourceIT {
         assertThat(testFood.getExpiry()).isEqualTo(DEFAULT_EXPIRY);
         assertThat(testFood.getRemainingQty()).isEqualTo(DEFAULT_REMAINING_QTY);
         assertThat(testFood.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testFood.getImageUrl()).isEqualTo(DEFAULT_IMAGE_URL);
     }
 
     @Test
@@ -211,7 +217,8 @@ class FoodResourceIT {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].expiry").value(hasItem(sameInstant(DEFAULT_EXPIRY))))
             .andExpect(jsonPath("$.[*].remainingQty").value(hasItem(DEFAULT_REMAINING_QTY)))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].imageUrl").value(hasItem(DEFAULT_IMAGE_URL)));
     }
 
     @Test
@@ -229,7 +236,8 @@ class FoodResourceIT {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.expiry").value(sameInstant(DEFAULT_EXPIRY)))
             .andExpect(jsonPath("$.remainingQty").value(DEFAULT_REMAINING_QTY))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION));
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
+            .andExpect(jsonPath("$.imageUrl").value(DEFAULT_IMAGE_URL));
     }
 
     @Test
@@ -251,7 +259,12 @@ class FoodResourceIT {
         Food updatedFood = foodRepository.findById(food.getId()).get();
         // Disconnect from session so that the updates on updatedFood are not directly saved in db
         em.detach(updatedFood);
-        updatedFood.name(UPDATED_NAME).expiry(UPDATED_EXPIRY).remainingQty(UPDATED_REMAINING_QTY).description(UPDATED_DESCRIPTION);
+        updatedFood
+            .name(UPDATED_NAME)
+            .expiry(UPDATED_EXPIRY)
+            .remainingQty(UPDATED_REMAINING_QTY)
+            .description(UPDATED_DESCRIPTION)
+            .imageUrl(UPDATED_IMAGE_URL);
         FoodDTO foodDTO = foodMapper.toDto(updatedFood);
 
         restFoodMockMvc
@@ -270,6 +283,7 @@ class FoodResourceIT {
         assertThat(testFood.getExpiry()).isEqualTo(UPDATED_EXPIRY);
         assertThat(testFood.getRemainingQty()).isEqualTo(UPDATED_REMAINING_QTY);
         assertThat(testFood.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testFood.getImageUrl()).isEqualTo(UPDATED_IMAGE_URL);
     }
 
     @Test
@@ -349,7 +363,12 @@ class FoodResourceIT {
         Food partialUpdatedFood = new Food();
         partialUpdatedFood.setId(food.getId());
 
-        partialUpdatedFood.name(UPDATED_NAME).expiry(UPDATED_EXPIRY).remainingQty(UPDATED_REMAINING_QTY).description(UPDATED_DESCRIPTION);
+        partialUpdatedFood
+            .name(UPDATED_NAME)
+            .expiry(UPDATED_EXPIRY)
+            .remainingQty(UPDATED_REMAINING_QTY)
+            .description(UPDATED_DESCRIPTION)
+            .imageUrl(UPDATED_IMAGE_URL);
 
         restFoodMockMvc
             .perform(
@@ -367,6 +386,7 @@ class FoodResourceIT {
         assertThat(testFood.getExpiry()).isEqualTo(UPDATED_EXPIRY);
         assertThat(testFood.getRemainingQty()).isEqualTo(UPDATED_REMAINING_QTY);
         assertThat(testFood.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testFood.getImageUrl()).isEqualTo(UPDATED_IMAGE_URL);
     }
 
     @Test
@@ -381,7 +401,12 @@ class FoodResourceIT {
         Food partialUpdatedFood = new Food();
         partialUpdatedFood.setId(food.getId());
 
-        partialUpdatedFood.name(UPDATED_NAME).expiry(UPDATED_EXPIRY).remainingQty(UPDATED_REMAINING_QTY).description(UPDATED_DESCRIPTION);
+        partialUpdatedFood
+            .name(UPDATED_NAME)
+            .expiry(UPDATED_EXPIRY)
+            .remainingQty(UPDATED_REMAINING_QTY)
+            .description(UPDATED_DESCRIPTION)
+            .imageUrl(UPDATED_IMAGE_URL);
 
         restFoodMockMvc
             .perform(
@@ -399,6 +424,7 @@ class FoodResourceIT {
         assertThat(testFood.getExpiry()).isEqualTo(UPDATED_EXPIRY);
         assertThat(testFood.getRemainingQty()).isEqualTo(UPDATED_REMAINING_QTY);
         assertThat(testFood.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testFood.getImageUrl()).isEqualTo(UPDATED_IMAGE_URL);
     }
 
     @Test

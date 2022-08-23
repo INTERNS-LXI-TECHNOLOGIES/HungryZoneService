@@ -13,9 +13,19 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
+eureka:
+  client:
+    enabled: false
+  instance:
+    appname: HungryZone
+    instanceId: HungryZone:${spring.application.instance-id:${random.value}}
+
 spring:
   application:
     name: HungryZone
+  cloud:
+    config:
+      enabled: false
   # Replace by 'prod, faker' to add the faker context and have sample data loaded in production
   liquibase:
     contexts: test
@@ -72,7 +82,7 @@ jhipster:
     authentication:
       jwt:
         # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
-        base64-secret: ODU5OGE1MzUyODdkMDE4YjE1YzVkNDhjM2QwZTVjYmFkZmJkOGUwN2QwY2QwYTVjOTdkYTQyZmJlMTJiNmFlN2IwMGViZDc5YmEyNmE2OWVkN2I2MDQ4NTkwNDJkZThlMzA5NThhZGZiZTdlN2I5ZDdmZDhjOGIzYzExMGZjNWY=
+        base64-secret: YmNkNTcwODIyYmYwZTljM2QyMzk1Y2I4N2QzMjQzZjYxNTkzZmRmMzg1YzU1NzUzMmM3Mzk0OGU0MjViYTQzMDEzMzIxNjRlNGQzM2FlNGZmNjk1MTJkZDhiYTYyNTg5ODg4YmQxZWZkOTMyMjcyNjdiNzE1MTA4NWE4MGZkMWQ=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
 

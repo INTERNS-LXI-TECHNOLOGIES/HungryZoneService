@@ -14,6 +14,8 @@ public class CategoryDTO implements Serializable {
     @NotNull
     private String name;
 
+    private String imageUrl;
+
     public Long getId() {
         return id;
     }
@@ -28,6 +30,14 @@ public class CategoryDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @Override
@@ -57,6 +67,7 @@ public class CategoryDTO implements Serializable {
         return "CategoryDTO{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", imageUrl='" + getImageUrl() + "'" +
             "}";
     }
 }

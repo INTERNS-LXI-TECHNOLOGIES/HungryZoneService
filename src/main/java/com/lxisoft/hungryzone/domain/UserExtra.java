@@ -23,7 +23,7 @@ public class UserExtra implements Serializable {
 
     @NotNull
     @Column(name = "phone_number", nullable = false)
-    private Long phoneNumber;
+    private String phoneNumber;
 
     @NotNull
     @Column(name = "address", nullable = false)
@@ -46,16 +46,16 @@ public class UserExtra implements Serializable {
     private Cart cart;
 
     @OneToMany(mappedBy = "donor")
-    @JsonIgnoreProperties(value = { "category", "donor", "orders" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "category", "donor", "order" }, allowSetters = true)
     private Set<Food> foods = new HashSet<>();
 
     @OneToMany(mappedBy = "donor")
-    @JsonIgnoreProperties(value = { "donor", "recipient", "foods" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "foods", "donor", "recipient" }, allowSetters = true)
     private Set<Order> donatedOrders = new HashSet<>();
 
     @OneToMany(mappedBy = "recipient")
-    @JsonIgnoreProperties(value = { "donor", "recipient", "foods" }, allowSetters = true)
-    private Set<Order> receivedOrders = new HashSet<>();
+    @JsonIgnoreProperties(value = { "foods", "donor", "recipient" }, allowSetters = true)
+    private Set<Order> recievedOrders = new HashSet<>();
 
     @ManyToMany(mappedBy = "users")
     @JsonIgnoreProperties(value = { "users" }, allowSetters = true)
@@ -76,16 +76,16 @@ public class UserExtra implements Serializable {
         this.id = id;
     }
 
-    public Long getPhoneNumber() {
+    public String getPhoneNumber() {
         return this.phoneNumber;
     }
 
-    public UserExtra phoneNumber(Long phoneNumber) {
+    public UserExtra phoneNumber(String phoneNumber) {
         this.setPhoneNumber(phoneNumber);
         return this;
     }
 
-    public void setPhoneNumber(Long phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -222,33 +222,33 @@ public class UserExtra implements Serializable {
         return this;
     }
 
-    public Set<Order> getReceivedOrders() {
-        return this.receivedOrders;
+    public Set<Order> getRecievedOrders() {
+        return this.recievedOrders;
     }
 
-    public void setReceivedOrders(Set<Order> orders) {
-        if (this.receivedOrders != null) {
-            this.receivedOrders.forEach(i -> i.setRecipient(null));
+    public void setRecievedOrders(Set<Order> orders) {
+        if (this.recievedOrders != null) {
+            this.recievedOrders.forEach(i -> i.setRecipient(null));
         }
         if (orders != null) {
             orders.forEach(i -> i.setRecipient(this));
         }
-        this.receivedOrders = orders;
+        this.recievedOrders = orders;
     }
 
-    public UserExtra receivedOrders(Set<Order> orders) {
-        this.setReceivedOrders(orders);
+    public UserExtra recievedOrders(Set<Order> orders) {
+        this.setRecievedOrders(orders);
         return this;
     }
 
-    public UserExtra addReceivedOrders(Order order) {
-        this.receivedOrders.add(order);
+    public UserExtra addRecievedOrders(Order order) {
+        this.recievedOrders.add(order);
         order.setRecipient(this);
         return this;
     }
 
-    public UserExtra removeReceivedOrders(Order order) {
-        this.receivedOrders.remove(order);
+    public UserExtra removeRecievedOrders(Order order) {
+        this.recievedOrders.remove(order);
         order.setRecipient(null);
         return this;
     }
@@ -308,7 +308,7 @@ public class UserExtra implements Serializable {
     public String toString() {
         return "UserExtra{" +
             "id=" + getId() +
-            ", phoneNumber=" + getPhoneNumber() +
+            ", phoneNumber='" + getPhoneNumber() + "'" +
             ", address='" + getAddress() + "'" +
             ", locationAtXAxis='" + getLocationAtXAxis() + "'" +
             ", locationAtYAxis='" + getLocationAtYAxis() + "'" +
