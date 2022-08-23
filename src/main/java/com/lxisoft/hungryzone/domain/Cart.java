@@ -20,7 +20,7 @@ public class Cart implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @JsonIgnoreProperties(value = { "user", "cart", "foods", "donatedOrders", "recievedOrders", "chats" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user", "cart", "foods", "donatedOrders", "receivedOrders", "chats" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
     private UserExtra user;

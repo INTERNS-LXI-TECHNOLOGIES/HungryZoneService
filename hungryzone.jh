@@ -62,7 +62,7 @@ relationship ManyToOne {
 }
 
 relationship ManyToOne {
-	Order{recipient} to UserExtra{recievedOrders}
+	Order{recipient} to UserExtra{receivedOrders}
 }
 
 relationship ManyToMany {

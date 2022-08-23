@@ -32,7 +32,7 @@ public class Chat implements Serializable {
 
     @ManyToMany
     @JoinTable(name = "rel_chat__users", joinColumns = @JoinColumn(name = "chat_id"), inverseJoinColumns = @JoinColumn(name = "users_id"))
-    @JsonIgnoreProperties(value = { "user", "cart", "foods", "donatedOrders", "recievedOrders", "chats" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user", "cart", "foods", "donatedOrders", "receivedOrders", "chats" }, allowSetters = true)
     private Set<UserExtra> users = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

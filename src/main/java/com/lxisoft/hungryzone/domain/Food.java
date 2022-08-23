@@ -42,7 +42,7 @@ public class Food implements Serializable {
     private Category category;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "user", "cart", "foods", "donatedOrders", "recievedOrders", "chats" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user", "cart", "foods", "donatedOrders", "receivedOrders", "chats" }, allowSetters = true)
     private UserExtra donor;
 
     @ManyToMany(mappedBy = "foods")

@@ -35,7 +35,7 @@
     },
     {
       "otherEntityName": "userExtra",
-      "otherEntityRelationshipName": "recievedOrders",
+      "otherEntityRelationshipName": "receivedOrders",
       "relationshipName": "recipient",
       "relationshipType": "many-to-one"
     },
