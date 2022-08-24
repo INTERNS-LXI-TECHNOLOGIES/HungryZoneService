@@ -60,7 +60,7 @@
     {
       "otherEntityName": "order",
       "otherEntityRelationshipName": "recipient",
-      "relationshipName": "recievedOrders",
+      "relationshipName": "receivedOrders",
       "relationshipType": "one-to-many"
     },
     {

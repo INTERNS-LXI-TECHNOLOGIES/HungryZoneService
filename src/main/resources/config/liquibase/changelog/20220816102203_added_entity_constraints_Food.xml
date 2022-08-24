@@ -19,11 +19,5 @@
                                  constraintName="fk_food__donor_id"
                                  referencedColumnNames="id"
                                  referencedTableName="user_extra"/>
-
-        <addForeignKeyConstraint baseColumnNames="order_id"
-                                 baseTableName="food"
-                                 constraintName="fk_food__order_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="jhi_order"/>
     </changeSet>
 </databaseChangeLog>

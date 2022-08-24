@@ -28,12 +28,6 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "food",
-      "otherEntityRelationshipName": "order",
-      "relationshipName": "food",
-      "relationshipType": "one-to-many"
-    },
-    {
       "otherEntityName": "userExtra",
       "otherEntityRelationshipName": "donatedOrders",
       "relationshipName": "donor",
@@ -41,9 +35,16 @@
     },
     {
       "otherEntityName": "userExtra",
-      "otherEntityRelationshipName": "recievedOrders",
+      "otherEntityRelationshipName": "receivedOrders",
       "relationshipName": "recipient",
       "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "food",
+      "otherEntityRelationshipName": "order",
+      "ownerSide": true,
+      "relationshipName": "food",
+      "relationshipType": "many-to-many"
     }
   ],
   "service": "serviceImpl"

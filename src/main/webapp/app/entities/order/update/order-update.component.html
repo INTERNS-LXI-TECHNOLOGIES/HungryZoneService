@@ -87,6 +87,21 @@
             <option [ngValue]="userExtraOption" *ngFor="let userExtraOption of userExtrasSharedCollection">{{ userExtraOption.id }}</option>
           </select>
         </div>
+
+        <div class="row mb-3">
+          <label for="field_foods">Food</label>
+          <select
+            class="form-control"
+            id="field_foods"
+            data-cy="food"
+            multiple
+            name="foods"
+            formControlName="foods"
+            [compareWith]="compareFood"
+          >
+            <option [ngValue]="foodOption" *ngFor="let foodOption of foodsSharedCollection">{{ foodOption.id }}</option>
+          </select>
+        </div>
       </div>
 
       <div>

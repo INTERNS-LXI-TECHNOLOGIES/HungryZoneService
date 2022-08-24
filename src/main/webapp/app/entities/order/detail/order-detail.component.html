@@ -38,6 +38,13 @@
             <a [routerLink]="['/user-extra', order.recipient.id, 'view']">{{ order.recipient?.id }}</a>
           </div>
         </dd>
+        <dt><span>Food</span></dt>
+        <dd>
+          <span *ngFor="let food of order.foods; let last = last">
+            <a [routerLink]="['/food', food.id, 'view']">{{ food.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

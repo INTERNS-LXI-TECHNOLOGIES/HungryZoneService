@@ -25,6 +25,7 @@ describe('Order Form Service', () => {
             orderStatus: expect.any(Object),
             donor: expect.any(Object),
             recipient: expect.any(Object),
+            foods: expect.any(Object),
           })
         );
       });
@@ -40,6 +41,7 @@ describe('Order Form Service', () => {
             orderStatus: expect.any(Object),
             donor: expect.any(Object),
             recipient: expect.any(Object),
+            foods: expect.any(Object),
           })
         );
       });

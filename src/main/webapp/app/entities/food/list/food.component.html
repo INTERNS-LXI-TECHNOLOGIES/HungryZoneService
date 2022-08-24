@@ -40,7 +40,6 @@
           <th scope="col" jhiSortBy="imageUrl"><span>Image Url</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="category.id"><span>Category</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="donor.id"><span>Donor</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="order.id"><span>Order</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -62,11 +61,6 @@
           <td>
             <div *ngIf="food.donor">
               <a [routerLink]="['/user-extra', food.donor.id, 'view']">{{ food.donor?.id }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="food.order">
-              <a [routerLink]="['/order', food.order.id, 'view']">{{ food.order?.id }}</a>
             </div>
           </td>
           <td class="text-end">

@@ -35,9 +35,6 @@
             <column name="donor_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="order_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="food" columnName="expiry" columnDataType="${datetimeType}"/>

@@ -34,6 +34,20 @@
         <dropDefaultValue tableName="jhi_order" columnName="order_date" columnDataType="${datetimeType}"/>
     </changeSet>
 
+    <changeSet id="20220816102204-1-relations" author="jhipster">
+
+        <createTable tableName="rel_jhi_order__food">
+            <column name="food_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="jhi_order_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="jhi_order_id, food_id" tableName="rel_jhi_order__food"/>
+    </changeSet>
+
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
 
     <!--

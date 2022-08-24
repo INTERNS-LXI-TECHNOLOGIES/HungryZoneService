@@ -27,7 +27,7 @@ type FoodFormRawValue = FormValueOf<IFood>;
 
 type NewFoodFormRawValue = FormValueOf<NewFood>;
 
-type FoodFormDefaults = Pick<NewFood, 'id' | 'expiry'>;
+type FoodFormDefaults = Pick<NewFood, 'id' | 'expiry' | 'orders'>;
 
 type FoodFormGroupContent = {
   id: FormControl<FoodFormRawValue['id'] | NewFood['id']>;
@@ -38,7 +38,7 @@ type FoodFormGroupContent = {
   imageUrl: FormControl<FoodFormRawValue['imageUrl']>;
   category: FormControl<FoodFormRawValue['category']>;
   donor: FormControl<FoodFormRawValue['donor']>;
-  order: FormControl<FoodFormRawValue['order']>;
+  orders: FormControl<FoodFormRawValue['orders']>;
 };
 
 export type FoodFormGroup = FormGroup<FoodFormGroupContent>;
@@ -71,7 +71,7 @@ export class FoodFormService {
       imageUrl: new FormControl(foodRawValue.imageUrl),
       category: new FormControl(foodRawValue.category),
       donor: new FormControl(foodRawValue.donor),
-      order: new FormControl(foodRawValue.order),
+      orders: new FormControl(foodRawValue.orders ?? []),
     });
   }
 
@@ -95,6 +95,7 @@ export class FoodFormService {
     return {
       id: null,
       expiry: currentTime,
+      orders: [],
     };
   }
 
@@ -111,6 +112,7 @@ export class FoodFormService {
     return {
       ...food,
       expiry: food.expiry ? food.expiry.format(DATE_TIME_FORMAT) : undefined,
+      orders: food.orders ?? [],
     };
   }
 }

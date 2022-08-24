@@ -46,16 +46,16 @@ public class UserExtra implements Serializable {
     private Cart cart;
 
     @OneToMany(mappedBy = "donor")
-    @JsonIgnoreProperties(value = { "category", "donor", "order" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "category", "donor", "orders" }, allowSetters = true)
     private Set<Food> foods = new HashSet<>();
 
     @OneToMany(mappedBy = "donor")
-    @JsonIgnoreProperties(value = { "foods", "donor", "recipient" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "donor", "recipient", "foods" }, allowSetters = true)
     private Set<Order> donatedOrders = new HashSet<>();
 
     @OneToMany(mappedBy = "recipient")
-    @JsonIgnoreProperties(value = { "foods", "donor", "recipient" }, allowSetters = true)
-    private Set<Order> recievedOrders = new HashSet<>();
+    @JsonIgnoreProperties(value = { "donor", "recipient", "foods" }, allowSetters = true)
+    private Set<Order> receivedOrders = new HashSet<>();
 
     @ManyToMany(mappedBy = "users")
     @JsonIgnoreProperties(value = { "users" }, allowSetters = true)
@@ -222,33 +222,33 @@ public class UserExtra implements Serializable {
         return this;
     }
 
-    public Set<Order> getRecievedOrders() {
-        return this.recievedOrders;
+    public Set<Order> getReceivedOrders() {
+        return this.receivedOrders;
     }
 
-    public void setRecievedOrders(Set<Order> orders) {
-        if (this.recievedOrders != null) {
-            this.recievedOrders.forEach(i -> i.setRecipient(null));
+    public void setReceivedOrders(Set<Order> orders) {
+        if (this.receivedOrders != null) {
+            this.receivedOrders.forEach(i -> i.setRecipient(null));
         }
         if (orders != null) {
             orders.forEach(i -> i.setRecipient(this));
         }
-        this.recievedOrders = orders;
+        this.receivedOrders = orders;
     }
 
-    public UserExtra recievedOrders(Set<Order> orders) {
-        this.setRecievedOrders(orders);
+    public UserExtra receivedOrders(Set<Order> orders) {
+        this.setReceivedOrders(orders);
         return this;
     }
 
-    public UserExtra addRecievedOrders(Order order) {
-        this.recievedOrders.add(order);
+    public UserExtra addReceivedOrders(Order order) {
+        this.receivedOrders.add(order);
         order.setRecipient(this);
         return this;
     }
 
-    public UserExtra removeRecievedOrders(Order order) {
-        this.recievedOrders.remove(order);
+    public UserExtra removeReceivedOrders(Order order) {
+        this.receivedOrders.remove(order);
         order.setRecipient(null);
         return this;
     }

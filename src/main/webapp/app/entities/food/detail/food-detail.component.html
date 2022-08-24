@@ -46,12 +46,6 @@
             <a [routerLink]="['/user-extra', food.donor.id, 'view']">{{ food.donor?.id }}</a>
           </div>
         </dd>
-        <dt><span>Order</span></dt>
-        <dd>
-          <div *ngIf="food.order">
-            <a [routerLink]="['/order', food.order.id, 'view']">{{ food.order?.id }}</a>
-          </div>
-        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

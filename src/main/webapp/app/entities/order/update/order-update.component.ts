@@ -9,6 +9,8 @@ import { IOrder } from '../order.model';
 import { OrderService } from '../service/order.service';
 import { IUserExtra } from 'app/entities/user-extra/user-extra.model';
 import { UserExtraService } from 'app/entities/user-extra/service/user-extra.service';
+import { IFood } from 'app/entities/food/food.model';
+import { FoodService } from 'app/entities/food/service/food.service';
 
 @Component({
   selector: 'jhi-order-update',
@@ -19,6 +21,7 @@ export class OrderUpdateComponent implements OnInit {
   order: IOrder | null = null;
 
   userExtrasSharedCollection: IUserExtra[] = [];
+  foodsSharedCollection: IFood[] = [];
 
   editForm: OrderFormGroup = this.orderFormService.createOrderFormGroup();
 
@@ -26,10 +29,13 @@ export class OrderUpdateComponent implements OnInit {
     protected orderService: OrderService,
     protected orderFormService: OrderFormService,
     protected userExtraService: UserExtraService,
+    protected foodService: FoodService,
     protected activatedRoute: ActivatedRoute
   ) {}
 
   compareUserExtra = (o1: IUserExtra | null, o2: IUserExtra | null): boolean => this.userExtraService.compareUserExtra(o1, o2);
+
+  compareFood = (o1: IFood | null, o2: IFood | null): boolean => this.foodService.compareFood(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ order }) => {
@@ -84,6 +90,7 @@ export class OrderUpdateComponent implements OnInit {
       order.donor,
       order.recipient
     );
+    this.foodsSharedCollection = this.foodService.addFoodToCollectionIfMissing<IFood>(this.foodsSharedCollection, ...(order.foods ?? []));
   }
 
   protected loadRelationshipsOptions(): void {
@@ -96,5 +103,11 @@ export class OrderUpdateComponent implements OnInit {
         )
       )
       .subscribe((userExtras: IUserExtra[]) => (this.userExtrasSharedCollection = userExtras));
+
+    this.foodService
+      .query()
+      .pipe(map((res: HttpResponse<IFood[]>) => res.body ?? []))
+      .pipe(map((foods: IFood[]) => this.foodService.addFoodToCollectionIfMissing<IFood>(foods, ...(this.order?.foods ?? []))))
+      .subscribe((foods: IFood[]) => (this.foodsSharedCollection = foods));
   }
 }

@@ -12,7 +12,7 @@ export interface IFood {
   imageUrl?: string | null;
   category?: Pick<ICategory, 'id'> | null;
   donor?: Pick<IUserExtra, 'id'> | null;
-  order?: Pick<IOrder, 'id'> | null;
+  orders?: Pick<IOrder, 'id'>[] | null;
 }
 
 export type NewFood = Omit<IFood, 'id'> & { id: null };

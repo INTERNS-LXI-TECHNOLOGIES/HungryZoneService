@@ -38,6 +38,7 @@
           <th scope="col" jhiSortBy="orderStatus"><span>Order Status</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="donor.id"><span>Donor</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="recipient.id"><span>Recipient</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="food.id"><span>Food</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -58,6 +59,12 @@
             <div *ngIf="order.recipient">
               <a [routerLink]="['/user-extra', order.recipient.id, 'view']">{{ order.recipient?.id }}</a>
             </div>
+          </td>
+          <td>
+            <span *ngFor="let food of order.foods; let last = last">
+              <a class="form-control-static" [routerLink]="['/food', food.id, 'view']">{{ food.id }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
           </td>
           <td class="text-end">
             <div class="btn-group">

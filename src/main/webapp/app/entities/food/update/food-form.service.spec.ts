@@ -27,7 +27,7 @@ describe('Food Form Service', () => {
             imageUrl: expect.any(Object),
             category: expect.any(Object),
             donor: expect.any(Object),
-            order: expect.any(Object),
+            orders: expect.any(Object),
           })
         );
       });
@@ -45,7 +45,7 @@ describe('Food Form Service', () => {
             imageUrl: expect.any(Object),
             category: expect.any(Object),
             donor: expect.any(Object),
-            order: expect.any(Object),
+            orders: expect.any(Object),
           })
         );
       });
