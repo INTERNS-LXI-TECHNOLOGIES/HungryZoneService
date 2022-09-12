@@ -1,70 +1,42 @@
 package com.lxisoft.hungryzone.web.websocket.dto;
 
+import java.time.Instant;
+
 public class ChatMessageDTO {
 
-    private String from;
-    private String text;
-    private String recipient;
-    private String time;
+    private String userLogin;
+    private String content;
+    private Instant time;
 
     public ChatMessageDTO() {}
 
-    public ChatMessageDTO(String from, String text, String recipient, String time) {
-        this.from = from;
-        this.text = text;
-        this.recipient = recipient;
+    public ChatMessageDTO(String userLogin, String content, Instant time) {
+        this.userLogin = userLogin;
+        this.content = content;
         this.time = time;
     }
 
-    public String getFrom() {
-        return from;
+    public String getUserLogin() {
+        return userLogin;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
     }
 
-    public String getText() {
-        return text;
+    public String getContent() {
+        return content;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public String getRecipient() {
-        return recipient;
-    }
-
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
-    }
-
-    public String getTime() {
+    public Instant getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Instant time) {
         this.time = time;
-    }
-
-    @Override
-    public String toString() {
-        return (
-            "ChatMessageDTO{" +
-            "from='" +
-            from +
-            '\'' +
-            ", text='" +
-            text +
-            '\'' +
-            ", recipient='" +
-            recipient +
-            '\'' +
-            ", time='" +
-            time +
-            '\'' +
-            '}'
-        );
     }
 }
