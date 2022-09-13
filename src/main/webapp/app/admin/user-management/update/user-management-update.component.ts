@@ -57,7 +57,9 @@ export class UserManagementUpdateComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     const user = this.editForm.getRawValue();
-    if (user.id !== null) {
+    console.log('saving userId with ' + user.id);
+    if (user.id !== null && user.id !== undefined) {
+      console.log('user id is not null');
       this.userService.update(user).subscribe({
         next: () => this.onSaveSuccess(),
         error: () => this.onSaveError(),
