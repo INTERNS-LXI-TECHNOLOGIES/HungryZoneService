@@ -2,7 +2,9 @@ package com.lxisoft.hungryzone.service.dto;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import javax.validation.constraints.*;
 
 /**
@@ -28,6 +30,8 @@ public class FoodDTO implements Serializable {
     private CategoryDTO category;
 
     private UserExtraDTO donor;
+
+    private Set<OrderDTO> orders = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -93,6 +97,14 @@ public class FoodDTO implements Serializable {
         this.donor = donor;
     }
 
+    public Set<OrderDTO> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<OrderDTO> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -126,6 +138,7 @@ public class FoodDTO implements Serializable {
             ", imageUrl='" + getImageUrl() + "'" +
             ", category=" + getCategory() +
             ", donor=" + getDonor() +
+            ", orders=" + getOrders() +
             "}";
     }
 }
