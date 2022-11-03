@@ -52,6 +52,9 @@ class OrderResourceIT {
     private static final Integer DEFAULT_QUANTITY = 1;
     private static final Integer UPDATED_QUANTITY = 2;
 
+    private static final String DEFAULT_UNIT = "AAAAAAAAAA";
+    private static final String UPDATED_UNIT = "BBBBBBBBBB";
+
     private static final String DEFAULT_ORDER_STATUS = "AAAAAAAAAA";
     private static final String UPDATED_ORDER_STATUS = "BBBBBBBBBB";
 
@@ -88,7 +91,11 @@ class OrderResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Order createEntity(EntityManager em) {
-        Order order = new Order().orderDate(DEFAULT_ORDER_DATE).quantity(DEFAULT_QUANTITY).orderStatus(DEFAULT_ORDER_STATUS);
+        Order order = new Order()
+            .orderDate(DEFAULT_ORDER_DATE)
+            .quantity(DEFAULT_QUANTITY)
+            .unit(DEFAULT_UNIT)
+            .orderStatus(DEFAULT_ORDER_STATUS);
         return order;
     }
 
@@ -99,7 +106,11 @@ class OrderResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Order createUpdatedEntity(EntityManager em) {
-        Order order = new Order().orderDate(UPDATED_ORDER_DATE).quantity(UPDATED_QUANTITY).orderStatus(UPDATED_ORDER_STATUS);
+        Order order = new Order()
+            .orderDate(UPDATED_ORDER_DATE)
+            .quantity(UPDATED_QUANTITY)
+            .unit(UPDATED_UNIT)
+            .orderStatus(UPDATED_ORDER_STATUS);
         return order;
     }
 
@@ -124,6 +135,7 @@ class OrderResourceIT {
         Order testOrder = orderList.get(orderList.size() - 1);
         assertThat(testOrder.getOrderDate()).isEqualTo(DEFAULT_ORDER_DATE);
         assertThat(testOrder.getQuantity()).isEqualTo(DEFAULT_QUANTITY);
+        assertThat(testOrder.getUnit()).isEqualTo(DEFAULT_UNIT);
         assertThat(testOrder.getOrderStatus()).isEqualTo(DEFAULT_ORDER_STATUS);
     }
 
@@ -184,6 +196,24 @@ class OrderResourceIT {
 
     @Test
     @Transactional
+    void checkUnitIsRequired() throws Exception {
+        int databaseSizeBeforeTest = orderRepository.findAll().size();
+        // set the field null
+        order.setUnit(null);
+
+        // Create the Order, which fails.
+        OrderDTO orderDTO = orderMapper.toDto(order);
+
+        restOrderMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(orderDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Order> orderList = orderRepository.findAll();
+        assertThat(orderList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void checkOrderStatusIsRequired() throws Exception {
         int databaseSizeBeforeTest = orderRepository.findAll().size();
         // set the field null
@@ -214,6 +244,7 @@ class OrderResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(order.getId().intValue())))
             .andExpect(jsonPath("$.[*].orderDate").value(hasItem(sameInstant(DEFAULT_ORDER_DATE))))
             .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY)))
+            .andExpect(jsonPath("$.[*].unit").value(hasItem(DEFAULT_UNIT)))
             .andExpect(jsonPath("$.[*].orderStatus").value(hasItem(DEFAULT_ORDER_STATUS)));
     }
 
@@ -248,6 +279,7 @@ class OrderResourceIT {
             .andExpect(jsonPath("$.id").value(order.getId().intValue()))
             .andExpect(jsonPath("$.orderDate").value(sameInstant(DEFAULT_ORDER_DATE)))
             .andExpect(jsonPath("$.quantity").value(DEFAULT_QUANTITY))
+            .andExpect(jsonPath("$.unit").value(DEFAULT_UNIT))
             .andExpect(jsonPath("$.orderStatus").value(DEFAULT_ORDER_STATUS));
     }
 
@@ -270,7 +302,7 @@ class OrderResourceIT {
         Order updatedOrder = orderRepository.findById(order.getId()).get();
         // Disconnect from session so that the updates on updatedOrder are not directly saved in db
         em.detach(updatedOrder);
-        updatedOrder.orderDate(UPDATED_ORDER_DATE).quantity(UPDATED_QUANTITY).orderStatus(UPDATED_ORDER_STATUS);
+        updatedOrder.orderDate(UPDATED_ORDER_DATE).quantity(UPDATED_QUANTITY).unit(UPDATED_UNIT).orderStatus(UPDATED_ORDER_STATUS);
         OrderDTO orderDTO = orderMapper.toDto(updatedOrder);
 
         restOrderMockMvc
@@ -287,6 +319,7 @@ class OrderResourceIT {
         Order testOrder = orderList.get(orderList.size() - 1);
         assertThat(testOrder.getOrderDate()).isEqualTo(UPDATED_ORDER_DATE);
         assertThat(testOrder.getQuantity()).isEqualTo(UPDATED_QUANTITY);
+        assertThat(testOrder.getUnit()).isEqualTo(UPDATED_UNIT);
         assertThat(testOrder.getOrderStatus()).isEqualTo(UPDATED_ORDER_STATUS);
     }
 
@@ -367,7 +400,7 @@ class OrderResourceIT {
         Order partialUpdatedOrder = new Order();
         partialUpdatedOrder.setId(order.getId());
 
-        partialUpdatedOrder.orderDate(UPDATED_ORDER_DATE).orderStatus(UPDATED_ORDER_STATUS);
+        partialUpdatedOrder.orderDate(UPDATED_ORDER_DATE).unit(UPDATED_UNIT).orderStatus(UPDATED_ORDER_STATUS);
 
         restOrderMockMvc
             .perform(
@@ -383,6 +416,7 @@ class OrderResourceIT {
         Order testOrder = orderList.get(orderList.size() - 1);
         assertThat(testOrder.getOrderDate()).isEqualTo(UPDATED_ORDER_DATE);
         assertThat(testOrder.getQuantity()).isEqualTo(DEFAULT_QUANTITY);
+        assertThat(testOrder.getUnit()).isEqualTo(UPDATED_UNIT);
         assertThat(testOrder.getOrderStatus()).isEqualTo(UPDATED_ORDER_STATUS);
     }
 
@@ -398,7 +432,7 @@ class OrderResourceIT {
         Order partialUpdatedOrder = new Order();
         partialUpdatedOrder.setId(order.getId());
 
-        partialUpdatedOrder.orderDate(UPDATED_ORDER_DATE).quantity(UPDATED_QUANTITY).orderStatus(UPDATED_ORDER_STATUS);
+        partialUpdatedOrder.orderDate(UPDATED_ORDER_DATE).quantity(UPDATED_QUANTITY).unit(UPDATED_UNIT).orderStatus(UPDATED_ORDER_STATUS);
 
         restOrderMockMvc
             .perform(
@@ -414,6 +448,7 @@ class OrderResourceIT {
         Order testOrder = orderList.get(orderList.size() - 1);
         assertThat(testOrder.getOrderDate()).isEqualTo(UPDATED_ORDER_DATE);
         assertThat(testOrder.getQuantity()).isEqualTo(UPDATED_QUANTITY);
+        assertThat(testOrder.getUnit()).isEqualTo(UPDATED_UNIT);
         assertThat(testOrder.getOrderStatus()).isEqualTo(UPDATED_ORDER_STATUS);
     }
 

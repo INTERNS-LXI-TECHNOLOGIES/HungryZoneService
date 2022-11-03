@@ -22,10 +22,6 @@
         <dd>
           <span>{{ food.expiry | formatMediumDatetime }}</span>
         </dd>
-        <dt><span>Remaining Qty</span></dt>
-        <dd>
-          <span>{{ food.remainingQty }}</span>
-        </dd>
         <dt><span>Description</span></dt>
         <dd>
           <span>{{ food.description }}</span>
@@ -33,6 +29,12 @@
         <dt><span>Image Url</span></dt>
         <dd>
           <span>{{ food.imageUrl }}</span>
+        </dd>
+        <dt><span>Food</span></dt>
+        <dd>
+          <div *ngIf="food.food">
+            <a [routerLink]="['/food-item', food.food.id, 'view']">{{ food.food?.id }}</a>
+          </div>
         </dd>
         <dt><span>Category</span></dt>
         <dd>

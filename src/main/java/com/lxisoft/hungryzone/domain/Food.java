@@ -30,26 +30,26 @@ public class Food implements Serializable {
     @Column(name = "expiry", nullable = false)
     private ZonedDateTime expiry;
 
-    @NotNull
-    @Column(name = "remaining_qty", nullable = false)
-    private Integer remainingQty;
-
     @Column(name = "description")
     private String description;
 
     @Column(name = "image_url")
     private String imageUrl;
 
+    @OneToOne
+    @JoinColumn(unique = true)
+    private FoodItem food;
+
     @ManyToOne
     @JsonIgnoreProperties(value = { "foods" }, allowSetters = true)
     private Category category;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "user", "cart", "foods", "donatedOrders", "receivedOrders", "chats" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user", "cart", "foods", "donatedOrders", "receivedOrders" }, allowSetters = true)
     private UserExtra donor;
 
     @ManyToMany(mappedBy = "foods")
-    @JsonIgnoreProperties(value = { "donor", "recipient", "foods" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "users", "donor", "recipient", "foods" }, allowSetters = true)
     private Set<Order> orders = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -93,19 +93,6 @@ public class Food implements Serializable {
         this.expiry = expiry;
     }
 
-    public Integer getRemainingQty() {
-        return this.remainingQty;
-    }
-
-    public Food remainingQty(Integer remainingQty) {
-        this.setRemainingQty(remainingQty);
-        return this;
-    }
-
-    public void setRemainingQty(Integer remainingQty) {
-        this.remainingQty = remainingQty;
-    }
-
     public String getDescription() {
         return this.description;
     }
@@ -130,6 +117,19 @@ public class Food implements Serializable {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public FoodItem getFood() {
+        return this.food;
+    }
+
+    public void setFood(FoodItem foodItem) {
+        this.food = foodItem;
+    }
+
+    public Food food(FoodItem foodItem) {
+        this.setFood(foodItem);
+        return this;
     }
 
     public Category getCategory() {
@@ -215,7 +215,6 @@ public class Food implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", expiry='" + getExpiry() + "'" +
-            ", remainingQty=" + getRemainingQty() +
             ", description='" + getDescription() + "'" +
             ", imageUrl='" + getImageUrl() + "'" +
             "}";

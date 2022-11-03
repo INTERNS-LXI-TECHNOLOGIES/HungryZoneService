@@ -14,7 +14,7 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type UserExtraFormGroupInput = IUserExtra | PartialWithRequiredKeyOf<NewUserExtra>;
 
-type UserExtraFormDefaults = Pick<NewUserExtra, 'id' | 'chats'>;
+type UserExtraFormDefaults = Pick<NewUserExtra, 'id'>;
 
 type UserExtraFormGroupContent = {
   id: FormControl<IUserExtra['id'] | NewUserExtra['id']>;
@@ -23,7 +23,6 @@ type UserExtraFormGroupContent = {
   locationAtXAxis: FormControl<IUserExtra['locationAtXAxis']>;
   locationAtYAxis: FormControl<IUserExtra['locationAtYAxis']>;
   user: FormControl<IUserExtra['user']>;
-  chats: FormControl<IUserExtra['chats']>;
 };
 
 export type UserExtraFormGroup = FormGroup<UserExtraFormGroupContent>;
@@ -56,7 +55,6 @@ export class UserExtraFormService {
         validators: [Validators.required],
       }),
       user: new FormControl(userExtraRawValue.user),
-      chats: new FormControl(userExtraRawValue.chats ?? []),
     });
   }
 
@@ -77,7 +75,6 @@ export class UserExtraFormService {
   private getFormDefaults(): UserExtraFormDefaults {
     return {
       id: null,
-      chats: [],
     };
   }
 }

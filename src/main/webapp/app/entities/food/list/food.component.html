@@ -35,9 +35,9 @@
           <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="name"><span>Name</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="expiry"><span>Expiry</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="remainingQty"><span>Remaining Qty</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="description"><span>Description</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="imageUrl"><span>Image Url</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="food.id"><span>Food</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="category.id"><span>Category</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="donor.id"><span>Donor</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
@@ -50,9 +50,13 @@
           </td>
           <td>{{ food.name }}</td>
           <td>{{ food.expiry | formatMediumDatetime }}</td>
-          <td>{{ food.remainingQty }}</td>
           <td>{{ food.description }}</td>
           <td>{{ food.imageUrl }}</td>
+          <td>
+            <div *ngIf="food.food">
+              <a [routerLink]="['/food-item', food.food.id, 'view']">{{ food.food?.id }}</a>
+            </div>
+          </td>
           <td>
             <div *ngIf="food.category">
               <a [routerLink]="['/category', food.category.id, 'view']">{{ food.category?.id }}</a>

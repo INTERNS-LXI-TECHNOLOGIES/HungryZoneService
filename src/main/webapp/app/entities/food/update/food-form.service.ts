@@ -33,9 +33,9 @@ type FoodFormGroupContent = {
   id: FormControl<FoodFormRawValue['id'] | NewFood['id']>;
   name: FormControl<FoodFormRawValue['name']>;
   expiry: FormControl<FoodFormRawValue['expiry']>;
-  remainingQty: FormControl<FoodFormRawValue['remainingQty']>;
   description: FormControl<FoodFormRawValue['description']>;
   imageUrl: FormControl<FoodFormRawValue['imageUrl']>;
+  food: FormControl<FoodFormRawValue['food']>;
   category: FormControl<FoodFormRawValue['category']>;
   donor: FormControl<FoodFormRawValue['donor']>;
   orders: FormControl<FoodFormRawValue['orders']>;
@@ -64,11 +64,9 @@ export class FoodFormService {
       expiry: new FormControl(foodRawValue.expiry, {
         validators: [Validators.required],
       }),
-      remainingQty: new FormControl(foodRawValue.remainingQty, {
-        validators: [Validators.required],
-      }),
       description: new FormControl(foodRawValue.description),
       imageUrl: new FormControl(foodRawValue.imageUrl),
+      food: new FormControl(foodRawValue.food),
       category: new FormControl(foodRawValue.category),
       donor: new FormControl(foodRawValue.donor),
       orders: new FormControl(foodRawValue.orders ?? []),

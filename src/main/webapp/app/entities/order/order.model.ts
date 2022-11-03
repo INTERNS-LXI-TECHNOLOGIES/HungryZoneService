@@ -6,6 +6,7 @@ export interface IOrder {
   id: number;
   orderDate?: dayjs.Dayjs | null;
   quantity?: number | null;
+  unit?: string | null;
   orderStatus?: string | null;
   donor?: Pick<IUserExtra, 'id'> | null;
   recipient?: Pick<IUserExtra, 'id'> | null;

@@ -13,11 +13,7 @@ public class WebsocketSecurityConfiguration extends AbstractSecurityWebSocketMes
     protected void configureInbound(MessageSecurityMetadataSourceRegistry messages) {
         messages
             .nullDestMatcher()
-            .permitAll()
-            .simpDestMatchers("/chat/private*")
-            .hasAuthority(AuthoritiesConstants.USER)
-            .simpDestMatchers("/chat/**")
-            .permitAll()
+            .authenticated()
             .simpDestMatchers("/topic/tracker")
             .hasAuthority(AuthoritiesConstants.ADMIN)
             // matches any destination that starts with /topic/

@@ -6,30 +6,26 @@ export const sampleWithRequiredData: IFood = {
   id: 57781,
   name: 'SCSI one-to-one benchmark',
   expiry: dayjs('2022-08-16T08:14'),
-  remainingQty: 27072,
 };
 
 export const sampleWithPartialData: IFood = {
-  id: 15544,
-  name: 'Shoes Jewelery TCP',
-  expiry: dayjs('2022-08-16T08:55'),
-  remainingQty: 85508,
-  description: 'bypassing Wyoming',
+  id: 48845,
+  name: 'Congolese',
+  expiry: dayjs('2022-08-16T02:47'),
+  imageUrl: 'optical',
 };
 
 export const sampleWithFullData: IFood = {
-  id: 64969,
-  name: 'wireless Music Cheese',
-  expiry: dayjs('2022-08-16T05:14'),
-  remainingQty: 38802,
-  description: 'Baby',
-  imageUrl: 'Spain quantify Object-based',
+  id: 1164,
+  name: 'Refined local',
+  expiry: dayjs('2022-08-16T10:03'),
+  description: 'navigate Small',
+  imageUrl: 'SSL red Yemen',
 };
 
 export const sampleWithNewData: NewFood = {
-  name: 'primary',
-  expiry: dayjs('2022-08-16T10:03'),
-  remainingQty: 56299,
+  name: 'Lilangeni program port',
+  expiry: dayjs('2022-08-16T08:39'),
   id: null,
 };
 

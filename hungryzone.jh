@@ -13,14 +13,19 @@ entity Category {
 entity Food {
 	name String required,
 	expiry ZonedDateTime required,
-	remainingQty Integer required,
 	description String,
 	imageUrl String
+}
+
+entity FoodItem{
+    quandity Integer required,
+    unit String required
 }
 
 entity Order {
 	orderDate ZonedDateTime required,
 	quantity Integer required,
+    unit String required,
 	orderStatus String required
 }
 
@@ -30,8 +35,9 @@ entity CartItem {
 	quantity Integer required
 }
 
-entity Chat {
-	chatDate ZonedDateTime required,
+entity Message {
+    userLogin String required,
+    chatDate ZonedDateTime required,
 	textMessage String required
 }
 
@@ -41,6 +47,10 @@ relationship OneToOne {
 
 relationship OneToOne {
 	Cart{user} to UserExtra{cart}
+}
+
+relationship OneToOne {
+    Food{food} to FoodItem
 }
 
 relationship OneToMany {
@@ -67,8 +77,8 @@ relationship ManyToOne {
 	Order{recipient} to UserExtra{receivedOrders}
 }
 
-relationship ManyToMany {
-	Chat{users} to UserExtra{chats}
+relationship OneToMany {
+    Order{user} to  Message{user}
 }
 
 relationship ManyToMany {

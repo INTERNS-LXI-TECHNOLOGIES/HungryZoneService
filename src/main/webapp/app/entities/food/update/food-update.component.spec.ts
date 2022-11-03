@@ -9,6 +9,8 @@ import { of, Subject, from } from 'rxjs';
 import { FoodFormService } from './food-form.service';
 import { FoodService } from '../service/food.service';
 import { IFood } from '../food.model';
+import { IFoodItem } from 'app/entities/food-item/food-item.model';
+import { FoodItemService } from 'app/entities/food-item/service/food-item.service';
 import { ICategory } from 'app/entities/category/category.model';
 import { CategoryService } from 'app/entities/category/service/category.service';
 import { IUserExtra } from 'app/entities/user-extra/user-extra.model';
@@ -22,6 +24,7 @@ describe('Food Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let foodFormService: FoodFormService;
   let foodService: FoodService;
+  let foodItemService: FoodItemService;
   let categoryService: CategoryService;
   let userExtraService: UserExtraService;
 
@@ -46,6 +49,7 @@ describe('Food Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     foodFormService = TestBed.inject(FoodFormService);
     foodService = TestBed.inject(FoodService);
+    foodItemService = TestBed.inject(FoodItemService);
     categoryService = TestBed.inject(CategoryService);
     userExtraService = TestBed.inject(UserExtraService);
 
@@ -53,6 +57,28 @@ describe('Food Management Update Component', () => {
   });
 
   describe('ngOnInit', () => {
+    it('Should call FoodItem query and add missing value', () => {
+      const food: IFood = { id: 456 };
+      const food: IFoodItem = { id: 6601 };
+      food.food = food;
+
+      const foodItemCollection: IFoodItem[] = [{ id: 76883 }];
+      jest.spyOn(foodItemService, 'query').mockReturnValue(of(new HttpResponse({ body: foodItemCollection })));
+      const additionalFoodItems = [food];
+      const expectedCollection: IFoodItem[] = [...additionalFoodItems, ...foodItemCollection];
+      jest.spyOn(foodItemService, 'addFoodItemToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ food });
+      comp.ngOnInit();
+
+      expect(foodItemService.query).toHaveBeenCalled();
+      expect(foodItemService.addFoodItemToCollectionIfMissing).toHaveBeenCalledWith(
+        foodItemCollection,
+        ...additionalFoodItems.map(expect.objectContaining)
+      );
+      expect(comp.foodItemsSharedCollection).toEqual(expectedCollection);
+    });
+
     it('Should call Category query and add missing value', () => {
       const food: IFood = { id: 456 };
       const category: ICategory = { id: 4477 };
@@ -99,6 +125,8 @@ describe('Food Management Update Component', () => {
 
     it('Should update editForm', () => {
       const food: IFood = { id: 456 };
+      const food: IFoodItem = { id: 69078 };
+      food.food = food;
       const category: ICategory = { id: 92800 };
       food.category = category;
       const donor: IUserExtra = { id: 82088 };
@@ -107,6 +135,7 @@ describe('Food Management Update Component', () => {
       activatedRoute.data = of({ food });
       comp.ngOnInit();
 
+      expect(comp.foodItemsSharedCollection).toContain(food);
       expect(comp.categoriesSharedCollection).toContain(category);
       expect(comp.userExtrasSharedCollection).toContain(donor);
       expect(comp.food).toEqual(food);
@@ -182,6 +211,16 @@ describe('Food Management Update Component', () => {
   });
 
   describe('Compare relationships', () => {
+    describe('compareFoodItem', () => {
+      it('Should forward to foodItemService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(foodItemService, 'compareFoodItem');
+        comp.compareFoodItem(entity, entity2);
+        expect(foodItemService.compareFoodItem).toHaveBeenCalledWith(entity, entity2);
+      });
+    });
+
     describe('compareCategory', () => {
       it('Should forward to categoryService', () => {
         const entity = { id: 123 };

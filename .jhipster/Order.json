@@ -16,6 +16,11 @@
       "fieldValidateRules": ["required"]
     },
     {
+      "fieldName": "unit",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
       "fieldName": "orderStatus",
       "fieldType": "String",
       "fieldValidateRules": ["required"]
@@ -27,6 +32,12 @@
   "pagination": "no",
   "readOnly": false,
   "relationships": [
+    {
+      "otherEntityName": "message",
+      "otherEntityRelationshipName": "user",
+      "relationshipName": "user",
+      "relationshipType": "one-to-many"
+    },
     {
       "otherEntityName": "userExtra",
       "otherEntityRelationshipName": "donatedOrders",

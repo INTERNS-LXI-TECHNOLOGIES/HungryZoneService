@@ -41,26 +41,6 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_remainingQty">Remaining Qty</label>
-          <input
-            type="number"
-            class="form-control"
-            name="remainingQty"
-            id="field_remainingQty"
-            data-cy="remainingQty"
-            formControlName="remainingQty"
-          />
-          <div
-            *ngIf="editForm.get('remainingQty')!.invalid && (editForm.get('remainingQty')!.dirty || editForm.get('remainingQty')!.touched)"
-          >
-            <small class="form-text text-danger" *ngIf="editForm.get('remainingQty')?.errors?.required"> This field is required. </small>
-            <small class="form-text text-danger" [hidden]="!editForm.get('remainingQty')?.errors?.number">
-              This field should be a number.
-            </small>
-          </div>
-        </div>
-
-        <div class="row mb-3">
           <label class="form-label" for="field_description">Description</label>
           <input
             type="text"
@@ -75,6 +55,14 @@
         <div class="row mb-3">
           <label class="form-label" for="field_imageUrl">Image Url</label>
           <input type="text" class="form-control" name="imageUrl" id="field_imageUrl" data-cy="imageUrl" formControlName="imageUrl" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_food">Food</label>
+          <select class="form-control" id="field_food" data-cy="food" name="food" formControlName="food" [compareWith]="compareFoodItem">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="foodItemOption" *ngFor="let foodItemOption of foodItemsSharedCollection">{{ foodItemOption.id }}</option>
+          </select>
         </div>
 
         <div class="row mb-3">

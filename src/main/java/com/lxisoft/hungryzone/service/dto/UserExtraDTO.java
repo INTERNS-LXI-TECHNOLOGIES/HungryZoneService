@@ -1,9 +1,7 @@
 package com.lxisoft.hungryzone.service.dto;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 import javax.validation.constraints.*;
 
 /**
@@ -24,8 +22,6 @@ public class UserExtraDTO implements Serializable {
 
     @NotNull
     private String locationAtYAxis;
-
-    private Set<FoodDTO> foods = new HashSet<>();
 
     private UserDTO user;
 
@@ -77,14 +73,6 @@ public class UserExtraDTO implements Serializable {
         this.user = user;
     }
 
-    public Set<FoodDTO> getFoods() {
-        return foods;
-    }
-
-    public void setFoods(Set<FoodDTO> foods) {
-        this.foods = foods;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -116,7 +104,6 @@ public class UserExtraDTO implements Serializable {
             ", locationAtXAxis='" + getLocationAtXAxis() + "'" +
             ", locationAtYAxis='" + getLocationAtYAxis() + "'" +
             ", user=" + getUser() +
-            ", foods=" + getFoods() +
             "}";
     }
 }

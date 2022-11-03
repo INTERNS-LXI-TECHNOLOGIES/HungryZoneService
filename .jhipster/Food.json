@@ -16,11 +16,6 @@
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "remainingQty",
-      "fieldType": "Integer",
-      "fieldValidateRules": ["required"]
-    },
-    {
       "fieldName": "description",
       "fieldType": "String"
     },
@@ -35,6 +30,12 @@
   "pagination": "no",
   "readOnly": false,
   "relationships": [
+    {
+      "otherEntityName": "foodItem",
+      "ownerSide": true,
+      "relationshipName": "food",
+      "relationshipType": "one-to-one"
+    },
     {
       "otherEntityName": "category",
       "otherEntityRelationshipName": "food",

@@ -35,6 +35,7 @@
           <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="orderDate"><span>Order Date</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="quantity"><span>Quantity</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="unit"><span>Unit</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="orderStatus"><span>Order Status</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="donor.id"><span>Donor</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="recipient.id"><span>Recipient</span> <fa-icon icon="sort"></fa-icon></th>
@@ -49,6 +50,7 @@
           </td>
           <td>{{ order.orderDate | formatMediumDatetime }}</td>
           <td>{{ order.quantity }}</td>
+          <td>{{ order.unit }}</td>
           <td>{{ order.orderStatus }}</td>
           <td>
             <div *ngIf="order.donor">

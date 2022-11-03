@@ -31,15 +31,23 @@ public class Order implements Serializable {
     private Integer quantity;
 
     @NotNull
+    @Column(name = "unit", nullable = false)
+    private String unit;
+
+    @NotNull
     @Column(name = "order_status", nullable = false)
     private String orderStatus;
 
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties(value = { "user" }, allowSetters = true)
+    private Set<Message> users = new HashSet<>();
+
     @ManyToOne
-    @JsonIgnoreProperties(value = { "user", "cart", "foods", "donatedOrders", "receivedOrders", "chats" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user", "cart", "foods", "donatedOrders", "receivedOrders" }, allowSetters = true)
     private UserExtra donor;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "user", "cart", "foods", "donatedOrders", "receivedOrders", "chats" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user", "cart", "foods", "donatedOrders", "receivedOrders" }, allowSetters = true)
     private UserExtra recipient;
 
     @ManyToMany
@@ -48,7 +56,7 @@ public class Order implements Serializable {
         joinColumns = @JoinColumn(name = "jhi_order_id"),
         inverseJoinColumns = @JoinColumn(name = "food_id")
     )
-    @JsonIgnoreProperties(value = { "category", "donor", "orders" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "food", "category", "donor", "orders" }, allowSetters = true)
     private Set<Food> foods = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -92,6 +100,19 @@ public class Order implements Serializable {
         this.quantity = quantity;
     }
 
+    public String getUnit() {
+        return this.unit;
+    }
+
+    public Order unit(String unit) {
+        this.setUnit(unit);
+        return this;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
     public String getOrderStatus() {
         return this.orderStatus;
     }
@@ -103,6 +124,37 @@ public class Order implements Serializable {
 
     public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public Set<Message> getUsers() {
+        return this.users;
+    }
+
+    public void setUsers(Set<Message> messages) {
+        if (this.users != null) {
+            this.users.forEach(i -> i.setUser(null));
+        }
+        if (messages != null) {
+            messages.forEach(i -> i.setUser(this));
+        }
+        this.users = messages;
+    }
+
+    public Order users(Set<Message> messages) {
+        this.setUsers(messages);
+        return this;
+    }
+
+    public Order addUser(Message message) {
+        this.users.add(message);
+        message.setUser(this);
+        return this;
+    }
+
+    public Order removeUser(Message message) {
+        this.users.remove(message);
+        message.setUser(null);
+        return this;
     }
 
     public UserExtra getDonor() {
@@ -182,6 +234,7 @@ public class Order implements Serializable {
             "id=" + getId() +
             ", orderDate='" + getOrderDate() + "'" +
             ", quantity=" + getQuantity() +
+            ", unit='" + getUnit() + "'" +
             ", orderStatus='" + getOrderStatus() + "'" +
             "}";
     }

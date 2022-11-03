@@ -46,20 +46,16 @@ public class UserExtra implements Serializable {
     private Cart cart;
 
     @OneToMany(mappedBy = "donor")
-    @JsonIgnoreProperties(value = { "category", "donor", "orders" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "food", "category", "donor", "orders" }, allowSetters = true)
     private Set<Food> foods = new HashSet<>();
 
     @OneToMany(mappedBy = "donor")
-    @JsonIgnoreProperties(value = { "donor", "recipient", "foods" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "users", "donor", "recipient", "foods" }, allowSetters = true)
     private Set<Order> donatedOrders = new HashSet<>();
 
     @OneToMany(mappedBy = "recipient")
-    @JsonIgnoreProperties(value = { "donor", "recipient", "foods" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "users", "donor", "recipient", "foods" }, allowSetters = true)
     private Set<Order> receivedOrders = new HashSet<>();
-
-    @ManyToMany(mappedBy = "users")
-    @JsonIgnoreProperties(value = { "users" }, allowSetters = true)
-    private Set<Chat> chats = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -250,37 +246,6 @@ public class UserExtra implements Serializable {
     public UserExtra removeReceivedOrders(Order order) {
         this.receivedOrders.remove(order);
         order.setRecipient(null);
-        return this;
-    }
-
-    public Set<Chat> getChats() {
-        return this.chats;
-    }
-
-    public void setChats(Set<Chat> chats) {
-        if (this.chats != null) {
-            this.chats.forEach(i -> i.removeUsers(this));
-        }
-        if (chats != null) {
-            chats.forEach(i -> i.addUsers(this));
-        }
-        this.chats = chats;
-    }
-
-    public UserExtra chats(Set<Chat> chats) {
-        this.setChats(chats);
-        return this;
-    }
-
-    public UserExtra addChats(Chat chat) {
-        this.chats.add(chat);
-        chat.getUsers().add(this);
-        return this;
-    }
-
-    public UserExtra removeChats(Chat chat) {
-        this.chats.remove(chat);
-        chat.getUsers().remove(this);
         return this;
     }
 

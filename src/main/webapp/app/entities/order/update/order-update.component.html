@@ -44,6 +44,14 @@
         </div>
 
         <div class="row mb-3">
+          <label class="form-label" for="field_unit">Unit</label>
+          <input type="text" class="form-control" name="unit" id="field_unit" data-cy="unit" formControlName="unit" />
+          <div *ngIf="editForm.get('unit')!.invalid && (editForm.get('unit')!.dirty || editForm.get('unit')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('unit')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
           <label class="form-label" for="field_orderStatus">Order Status</label>
           <input
             type="text"

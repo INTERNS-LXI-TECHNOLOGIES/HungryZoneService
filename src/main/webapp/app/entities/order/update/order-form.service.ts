@@ -33,6 +33,7 @@ type OrderFormGroupContent = {
   id: FormControl<OrderFormRawValue['id'] | NewOrder['id']>;
   orderDate: FormControl<OrderFormRawValue['orderDate']>;
   quantity: FormControl<OrderFormRawValue['quantity']>;
+  unit: FormControl<OrderFormRawValue['unit']>;
   orderStatus: FormControl<OrderFormRawValue['orderStatus']>;
   donor: FormControl<OrderFormRawValue['donor']>;
   recipient: FormControl<OrderFormRawValue['recipient']>;
@@ -60,6 +61,9 @@ export class OrderFormService {
         validators: [Validators.required],
       }),
       quantity: new FormControl(orderRawValue.quantity, {
+        validators: [Validators.required],
+      }),
+      unit: new FormControl(orderRawValue.unit, {
         validators: [Validators.required],
       }),
       orderStatus: new FormControl(orderRawValue.orderStatus, {

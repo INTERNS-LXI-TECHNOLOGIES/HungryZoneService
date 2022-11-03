@@ -62,13 +62,6 @@
       "otherEntityRelationshipName": "recipient",
       "relationshipName": "receivedOrders",
       "relationshipType": "one-to-many"
-    },
-    {
-      "otherEntityName": "chat",
-      "otherEntityRelationshipName": "users",
-      "ownerSide": false,
-      "relationshipName": "chats",
-      "relationshipType": "many-to-many"
     }
   ],
   "service": "serviceImpl"

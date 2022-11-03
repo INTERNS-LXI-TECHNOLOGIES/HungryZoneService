@@ -7,6 +7,8 @@ import { finalize, map } from 'rxjs/operators';
 import { FoodFormService, FoodFormGroup } from './food-form.service';
 import { IFood } from '../food.model';
 import { FoodService } from '../service/food.service';
+import { IFoodItem } from 'app/entities/food-item/food-item.model';
+import { FoodItemService } from 'app/entities/food-item/service/food-item.service';
 import { ICategory } from 'app/entities/category/category.model';
 import { CategoryService } from 'app/entities/category/service/category.service';
 import { IUserExtra } from 'app/entities/user-extra/user-extra.model';
@@ -20,6 +22,7 @@ export class FoodUpdateComponent implements OnInit {
   isSaving = false;
   food: IFood | null = null;
 
+  foodItemsSharedCollection: IFoodItem[] = [];
   categoriesSharedCollection: ICategory[] = [];
   userExtrasSharedCollection: IUserExtra[] = [];
 
@@ -28,10 +31,13 @@ export class FoodUpdateComponent implements OnInit {
   constructor(
     protected foodService: FoodService,
     protected foodFormService: FoodFormService,
+    protected foodItemService: FoodItemService,
     protected categoryService: CategoryService,
     protected userExtraService: UserExtraService,
     protected activatedRoute: ActivatedRoute
   ) {}
+
+  compareFoodItem = (o1: IFoodItem | null, o2: IFoodItem | null): boolean => this.foodItemService.compareFoodItem(o1, o2);
 
   compareCategory = (o1: ICategory | null, o2: ICategory | null): boolean => this.categoryService.compareCategory(o1, o2);
 
@@ -85,6 +91,10 @@ export class FoodUpdateComponent implements OnInit {
     this.food = food;
     this.foodFormService.resetForm(this.editForm, food);
 
+    this.foodItemsSharedCollection = this.foodItemService.addFoodItemToCollectionIfMissing<IFoodItem>(
+      this.foodItemsSharedCollection,
+      food.food
+    );
     this.categoriesSharedCollection = this.categoryService.addCategoryToCollectionIfMissing<ICategory>(
       this.categoriesSharedCollection,
       food.category
@@ -96,6 +106,12 @@ export class FoodUpdateComponent implements OnInit {
   }
 
   protected loadRelationshipsOptions(): void {
+    this.foodItemService
+      .query()
+      .pipe(map((res: HttpResponse<IFoodItem[]>) => res.body ?? []))
+      .pipe(map((foodItems: IFoodItem[]) => this.foodItemService.addFoodItemToCollectionIfMissing<IFoodItem>(foodItems, this.food?.food)))
+      .subscribe((foodItems: IFoodItem[]) => (this.foodItemsSharedCollection = foodItems));
+
     this.categoryService
       .query()
       .pipe(map((res: HttpResponse<ICategory[]>) => res.body ?? []))

@@ -25,7 +25,6 @@ describe('UserExtra Form Service', () => {
             locationAtXAxis: expect.any(Object),
             locationAtYAxis: expect.any(Object),
             user: expect.any(Object),
-            chats: expect.any(Object),
           })
         );
       });
@@ -41,7 +40,6 @@ describe('UserExtra Form Service', () => {
             locationAtXAxis: expect.any(Object),
             locationAtYAxis: expect.any(Object),
             user: expect.any(Object),
-            chats: expect.any(Object),
           })
         );
       });

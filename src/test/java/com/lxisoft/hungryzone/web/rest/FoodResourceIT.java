@@ -42,9 +42,6 @@ class FoodResourceIT {
     private static final ZonedDateTime DEFAULT_EXPIRY = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_EXPIRY = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
-    private static final Integer DEFAULT_REMAINING_QTY = 1;
-    private static final Integer UPDATED_REMAINING_QTY = 2;
-
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
@@ -78,12 +75,7 @@ class FoodResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Food createEntity(EntityManager em) {
-        Food food = new Food()
-            .name(DEFAULT_NAME)
-            .expiry(DEFAULT_EXPIRY)
-            .remainingQty(DEFAULT_REMAINING_QTY)
-            .description(DEFAULT_DESCRIPTION)
-            .imageUrl(DEFAULT_IMAGE_URL);
+        Food food = new Food().name(DEFAULT_NAME).expiry(DEFAULT_EXPIRY).description(DEFAULT_DESCRIPTION).imageUrl(DEFAULT_IMAGE_URL);
         return food;
     }
 
@@ -94,12 +86,7 @@ class FoodResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Food createUpdatedEntity(EntityManager em) {
-        Food food = new Food()
-            .name(UPDATED_NAME)
-            .expiry(UPDATED_EXPIRY)
-            .remainingQty(UPDATED_REMAINING_QTY)
-            .description(UPDATED_DESCRIPTION)
-            .imageUrl(UPDATED_IMAGE_URL);
+        Food food = new Food().name(UPDATED_NAME).expiry(UPDATED_EXPIRY).description(UPDATED_DESCRIPTION).imageUrl(UPDATED_IMAGE_URL);
         return food;
     }
 
@@ -124,7 +111,6 @@ class FoodResourceIT {
         Food testFood = foodList.get(foodList.size() - 1);
         assertThat(testFood.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testFood.getExpiry()).isEqualTo(DEFAULT_EXPIRY);
-        assertThat(testFood.getRemainingQty()).isEqualTo(DEFAULT_REMAINING_QTY);
         assertThat(testFood.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testFood.getImageUrl()).isEqualTo(DEFAULT_IMAGE_URL);
     }
@@ -186,24 +172,6 @@ class FoodResourceIT {
 
     @Test
     @Transactional
-    void checkRemainingQtyIsRequired() throws Exception {
-        int databaseSizeBeforeTest = foodRepository.findAll().size();
-        // set the field null
-        food.setRemainingQty(null);
-
-        // Create the Food, which fails.
-        FoodDTO foodDTO = foodMapper.toDto(food);
-
-        restFoodMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(foodDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Food> foodList = foodRepository.findAll();
-        assertThat(foodList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllFoods() throws Exception {
         // Initialize the database
         foodRepository.saveAndFlush(food);
@@ -216,7 +184,6 @@ class FoodResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(food.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].expiry").value(hasItem(sameInstant(DEFAULT_EXPIRY))))
-            .andExpect(jsonPath("$.[*].remainingQty").value(hasItem(DEFAULT_REMAINING_QTY)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
             .andExpect(jsonPath("$.[*].imageUrl").value(hasItem(DEFAULT_IMAGE_URL)));
     }
@@ -235,7 +202,6 @@ class FoodResourceIT {
             .andExpect(jsonPath("$.id").value(food.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.expiry").value(sameInstant(DEFAULT_EXPIRY)))
-            .andExpect(jsonPath("$.remainingQty").value(DEFAULT_REMAINING_QTY))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
             .andExpect(jsonPath("$.imageUrl").value(DEFAULT_IMAGE_URL));
     }
@@ -259,12 +225,7 @@ class FoodResourceIT {
         Food updatedFood = foodRepository.findById(food.getId()).get();
         // Disconnect from session so that the updates on updatedFood are not directly saved in db
         em.detach(updatedFood);
-        updatedFood
-            .name(UPDATED_NAME)
-            .expiry(UPDATED_EXPIRY)
-            .remainingQty(UPDATED_REMAINING_QTY)
-            .description(UPDATED_DESCRIPTION)
-            .imageUrl(UPDATED_IMAGE_URL);
+        updatedFood.name(UPDATED_NAME).expiry(UPDATED_EXPIRY).description(UPDATED_DESCRIPTION).imageUrl(UPDATED_IMAGE_URL);
         FoodDTO foodDTO = foodMapper.toDto(updatedFood);
 
         restFoodMockMvc
@@ -281,7 +242,6 @@ class FoodResourceIT {
         Food testFood = foodList.get(foodList.size() - 1);
         assertThat(testFood.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testFood.getExpiry()).isEqualTo(UPDATED_EXPIRY);
-        assertThat(testFood.getRemainingQty()).isEqualTo(UPDATED_REMAINING_QTY);
         assertThat(testFood.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testFood.getImageUrl()).isEqualTo(UPDATED_IMAGE_URL);
     }
@@ -363,12 +323,7 @@ class FoodResourceIT {
         Food partialUpdatedFood = new Food();
         partialUpdatedFood.setId(food.getId());
 
-        partialUpdatedFood
-            .name(UPDATED_NAME)
-            .expiry(UPDATED_EXPIRY)
-            .remainingQty(UPDATED_REMAINING_QTY)
-            .description(UPDATED_DESCRIPTION)
-            .imageUrl(UPDATED_IMAGE_URL);
+        partialUpdatedFood.name(UPDATED_NAME).expiry(UPDATED_EXPIRY).description(UPDATED_DESCRIPTION).imageUrl(UPDATED_IMAGE_URL);
 
         restFoodMockMvc
             .perform(
@@ -384,7 +339,6 @@ class FoodResourceIT {
         Food testFood = foodList.get(foodList.size() - 1);
         assertThat(testFood.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testFood.getExpiry()).isEqualTo(UPDATED_EXPIRY);
-        assertThat(testFood.getRemainingQty()).isEqualTo(UPDATED_REMAINING_QTY);
         assertThat(testFood.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testFood.getImageUrl()).isEqualTo(UPDATED_IMAGE_URL);
     }
@@ -401,12 +355,7 @@ class FoodResourceIT {
         Food partialUpdatedFood = new Food();
         partialUpdatedFood.setId(food.getId());
 
-        partialUpdatedFood
-            .name(UPDATED_NAME)
-            .expiry(UPDATED_EXPIRY)
-            .remainingQty(UPDATED_REMAINING_QTY)
-            .description(UPDATED_DESCRIPTION)
-            .imageUrl(UPDATED_IMAGE_URL);
+        partialUpdatedFood.name(UPDATED_NAME).expiry(UPDATED_EXPIRY).description(UPDATED_DESCRIPTION).imageUrl(UPDATED_IMAGE_URL);
 
         restFoodMockMvc
             .perform(
@@ -422,7 +371,6 @@ class FoodResourceIT {
         Food testFood = foodList.get(foodList.size() - 1);
         assertThat(testFood.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testFood.getExpiry()).isEqualTo(UPDATED_EXPIRY);
-        assertThat(testFood.getRemainingQty()).isEqualTo(UPDATED_REMAINING_QTY);
         assertThat(testFood.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testFood.getImageUrl()).isEqualTo(UPDATED_IMAGE_URL);
     }

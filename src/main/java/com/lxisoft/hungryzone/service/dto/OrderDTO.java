@@ -21,6 +21,9 @@ public class OrderDTO implements Serializable {
     private Integer quantity;
 
     @NotNull
+    private String unit;
+
+    @NotNull
     private String orderStatus;
 
     private UserExtraDTO donor;
@@ -51,6 +54,14 @@ public class OrderDTO implements Serializable {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     public String getOrderStatus() {
@@ -113,6 +124,7 @@ public class OrderDTO implements Serializable {
             "id=" + getId() +
             ", orderDate='" + getOrderDate() + "'" +
             ", quantity=" + getQuantity() +
+            ", unit='" + getUnit() + "'" +
             ", orderStatus='" + getOrderStatus() + "'" +
             ", donor=" + getDonor() +
             ", recipient=" + getRecipient() +

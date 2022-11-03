@@ -2,9 +2,7 @@ package com.lxisoft.hungryzone.service.dto;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 import javax.validation.constraints.*;
 
 /**
@@ -20,18 +18,15 @@ public class FoodDTO implements Serializable {
     @NotNull
     private ZonedDateTime expiry;
 
-    @NotNull
-    private Integer remainingQty;
-
     private String description;
 
     private String imageUrl;
 
+    private FoodItemDTO food;
+
     private CategoryDTO category;
 
     private UserExtraDTO donor;
-
-    private Set<OrderDTO> orders = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -57,14 +52,6 @@ public class FoodDTO implements Serializable {
         this.expiry = expiry;
     }
 
-    public Integer getRemainingQty() {
-        return remainingQty;
-    }
-
-    public void setRemainingQty(Integer remainingQty) {
-        this.remainingQty = remainingQty;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -81,6 +68,14 @@ public class FoodDTO implements Serializable {
         this.imageUrl = imageUrl;
     }
 
+    public FoodItemDTO getFood() {
+        return food;
+    }
+
+    public void setFood(FoodItemDTO food) {
+        this.food = food;
+    }
+
     public CategoryDTO getCategory() {
         return category;
     }
@@ -95,14 +90,6 @@ public class FoodDTO implements Serializable {
 
     public void setDonor(UserExtraDTO donor) {
         this.donor = donor;
-    }
-
-    public Set<OrderDTO> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Set<OrderDTO> orders) {
-        this.orders = orders;
     }
 
     @Override
@@ -133,12 +120,11 @@ public class FoodDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", expiry='" + getExpiry() + "'" +
-            ", remainingQty=" + getRemainingQty() +
             ", description='" + getDescription() + "'" +
             ", imageUrl='" + getImageUrl() + "'" +
+            ", food=" + getFood() +
             ", category=" + getCategory() +
             ", donor=" + getDonor() +
-            ", orders=" + getOrders() +
             "}";
     }
 }
