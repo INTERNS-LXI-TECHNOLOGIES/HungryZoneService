@@ -18,7 +18,7 @@ entity Food {
 }
 
 entity FoodItem{
-    quandity Integer required,
+    quantity Integer required,
     unit String required
 }
 
