@@ -12,11 +12,11 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_quandity">Quandity</label>
-          <input type="number" class="form-control" name="quandity" id="field_quandity" data-cy="quandity" formControlName="quandity" />
-          <div *ngIf="editForm.get('quandity')!.invalid && (editForm.get('quandity')!.dirty || editForm.get('quandity')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('quandity')?.errors?.required"> This field is required. </small>
-            <small class="form-text text-danger" [hidden]="!editForm.get('quandity')?.errors?.number">
+          <label class="form-label" for="field_quantity">Quantity</label>
+          <input type="number" class="form-control" name="quantity" id="field_quantity" data-cy="quantity" formControlName="quantity" />
+          <div *ngIf="editForm.get('quantity')!.invalid && (editForm.get('quantity')!.dirty || editForm.get('quantity')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('quantity')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('quantity')?.errors?.number">
               This field should be a number.
             </small>
           </div>

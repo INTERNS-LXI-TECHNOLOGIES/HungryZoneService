@@ -33,7 +33,7 @@
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
           <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="quandity"><span>Quandity</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="quantity"><span>Quantity</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="unit"><span>Unit</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
         </tr>
@@ -43,7 +43,7 @@
           <td>
             <a [routerLink]="['/food-item', foodItem.id, 'view']">{{ foodItem.id }}</a>
           </td>
-          <td>{{ foodItem.quandity }}</td>
+          <td>{{ foodItem.quantity }}</td>
           <td>{{ foodItem.unit }}</td>
           <td class="text-end">
             <div class="btn-group">

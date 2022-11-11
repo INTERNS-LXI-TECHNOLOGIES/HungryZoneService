@@ -18,7 +18,7 @@ type FoodItemFormDefaults = Pick<NewFoodItem, 'id'>;
 
 type FoodItemFormGroupContent = {
   id: FormControl<IFoodItem['id'] | NewFoodItem['id']>;
-  quandity: FormControl<IFoodItem['quandity']>;
+  quantity: FormControl<IFoodItem['quantity']>;
   unit: FormControl<IFoodItem['unit']>;
 };
 
@@ -39,7 +39,7 @@ export class FoodItemFormService {
           validators: [Validators.required],
         }
       ),
-      quandity: new FormControl(foodItemRawValue.quandity, {
+      quantity: new FormControl(foodItemRawValue.quantity, {
         validators: [Validators.required],
       }),
       unit: new FormControl(foodItemRawValue.unit, {

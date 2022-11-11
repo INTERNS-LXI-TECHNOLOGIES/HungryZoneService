@@ -19,8 +19,8 @@ public class FoodItem implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "quandity", nullable = false)
-    private Integer quandity;
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity;
 
     @NotNull
     @Column(name = "unit", nullable = false)
@@ -41,17 +41,17 @@ public class FoodItem implements Serializable {
         this.id = id;
     }
 
-    public Integer getQuandity() {
-        return this.quandity;
+    public Integer getQuantity() {
+        return this.quantity;
     }
 
-    public FoodItem quandity(Integer quandity) {
-        this.setQuandity(quandity);
+    public FoodItem quantity(Integer quantity) {
+        this.setQuantity(quantity);
         return this;
     }
 
-    public void setQuandity(Integer quandity) {
-        this.quandity = quandity;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public String getUnit() {
@@ -91,7 +91,7 @@ public class FoodItem implements Serializable {
     public String toString() {
         return "FoodItem{" +
             "id=" + getId() +
-            ", quandity=" + getQuandity() +
+            ", quantity=" + getQuantity() +
             ", unit='" + getUnit() + "'" +
             "}";
     }

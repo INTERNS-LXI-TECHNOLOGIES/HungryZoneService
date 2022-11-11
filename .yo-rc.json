@@ -19,7 +19,7 @@
     "enableHibernateCache": false,
     "enableSwaggerCodegen": false,
     "enableTranslation": false,
-    "entities": ["UserExtra", "Category", "Food", "Order", "Cart", "CartItem", "Chat", "FoodItem", "Message"],
+    "entities": ["UserExtra", "Category", "Food", "Order", "Cart", "CartItem", "FoodItem", "Message"],
     "entitySuffix": "",
     "jhiPrefix": "jhi",
     "jhipsterVersion": "7.9.2",

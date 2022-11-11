@@ -20,7 +20,7 @@ describe('FoodItem Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            quandity: expect.any(Object),
+            quantity: expect.any(Object),
             unit: expect.any(Object),
           })
         );
@@ -32,7 +32,7 @@ describe('FoodItem Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            quandity: expect.any(Object),
+            quantity: expect.any(Object),
             unit: expect.any(Object),
           })
         );

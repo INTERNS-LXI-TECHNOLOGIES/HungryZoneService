@@ -6,7 +6,7 @@
   "entityTableName": "food_item",
   "fields": [
     {
-      "fieldName": "quandity",
+      "fieldName": "quantity",
       "fieldType": "Integer",
       "fieldValidateRules": ["required"]
     },

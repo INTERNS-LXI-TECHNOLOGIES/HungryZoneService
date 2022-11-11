@@ -12,7 +12,7 @@ public class FoodItemDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private Integer quandity;
+    private Integer quantity;
 
     @NotNull
     private String unit;
@@ -25,12 +25,12 @@ public class FoodItemDTO implements Serializable {
         this.id = id;
     }
 
-    public Integer getQuandity() {
-        return quandity;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setQuandity(Integer quandity) {
-        this.quandity = quandity;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public String getUnit() {
@@ -67,7 +67,7 @@ public class FoodItemDTO implements Serializable {
     public String toString() {
         return "FoodItemDTO{" +
             "id=" + getId() +
-            ", quandity=" + getQuandity() +
+            ", quantity=" + getQuantity() +
             ", unit='" + getUnit() + "'" +
             "}";
     }

@@ -1,6 +1,6 @@
 export interface IFoodItem {
   id: number;
-  quandity?: number | null;
+  quantity?: number | null;
   unit?: string | null;
 }
 

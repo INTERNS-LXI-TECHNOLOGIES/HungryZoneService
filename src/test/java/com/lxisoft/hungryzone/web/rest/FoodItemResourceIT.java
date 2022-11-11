@@ -31,8 +31,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class FoodItemResourceIT {
 
-    private static final Integer DEFAULT_QUANDITY = 1;
-    private static final Integer UPDATED_QUANDITY = 2;
+    private static final Integer DEFAULT_QUANTITY = 1;
+    private static final Integer UPDATED_QUANTITY = 2;
 
     private static final String DEFAULT_UNIT = "AAAAAAAAAA";
     private static final String UPDATED_UNIT = "BBBBBBBBBB";
@@ -64,7 +64,7 @@ class FoodItemResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static FoodItem createEntity(EntityManager em) {
-        FoodItem foodItem = new FoodItem().quandity(DEFAULT_QUANDITY).unit(DEFAULT_UNIT);
+        FoodItem foodItem = new FoodItem().quantity(DEFAULT_QUANTITY).unit(DEFAULT_UNIT);
         return foodItem;
     }
 
@@ -75,7 +75,7 @@ class FoodItemResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static FoodItem createUpdatedEntity(EntityManager em) {
-        FoodItem foodItem = new FoodItem().quandity(UPDATED_QUANDITY).unit(UPDATED_UNIT);
+        FoodItem foodItem = new FoodItem().quantity(UPDATED_QUANTITY).unit(UPDATED_UNIT);
         return foodItem;
     }
 
@@ -98,7 +98,7 @@ class FoodItemResourceIT {
         List<FoodItem> foodItemList = foodItemRepository.findAll();
         assertThat(foodItemList).hasSize(databaseSizeBeforeCreate + 1);
         FoodItem testFoodItem = foodItemList.get(foodItemList.size() - 1);
-        assertThat(testFoodItem.getQuandity()).isEqualTo(DEFAULT_QUANDITY);
+        assertThat(testFoodItem.getQuantity()).isEqualTo(DEFAULT_QUANTITY);
         assertThat(testFoodItem.getUnit()).isEqualTo(DEFAULT_UNIT);
     }
 
@@ -123,10 +123,10 @@ class FoodItemResourceIT {
 
     @Test
     @Transactional
-    void checkQuandityIsRequired() throws Exception {
+    void checkQuantityIsRequired() throws Exception {
         int databaseSizeBeforeTest = foodItemRepository.findAll().size();
         // set the field null
-        foodItem.setQuandity(null);
+        foodItem.setQuantity(null);
 
         // Create the FoodItem, which fails.
         FoodItemDTO foodItemDTO = foodItemMapper.toDto(foodItem);
@@ -169,7 +169,7 @@ class FoodItemResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(foodItem.getId().intValue())))
-            .andExpect(jsonPath("$.[*].quandity").value(hasItem(DEFAULT_QUANDITY)))
+            .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY)))
             .andExpect(jsonPath("$.[*].unit").value(hasItem(DEFAULT_UNIT)));
     }
 
@@ -185,7 +185,7 @@ class FoodItemResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(foodItem.getId().intValue()))
-            .andExpect(jsonPath("$.quandity").value(DEFAULT_QUANDITY))
+            .andExpect(jsonPath("$.quantity").value(DEFAULT_QUANTITY))
             .andExpect(jsonPath("$.unit").value(DEFAULT_UNIT));
     }
 
@@ -208,7 +208,7 @@ class FoodItemResourceIT {
         FoodItem updatedFoodItem = foodItemRepository.findById(foodItem.getId()).get();
         // Disconnect from session so that the updates on updatedFoodItem are not directly saved in db
         em.detach(updatedFoodItem);
-        updatedFoodItem.quandity(UPDATED_QUANDITY).unit(UPDATED_UNIT);
+        updatedFoodItem.quantity(UPDATED_QUANTITY).unit(UPDATED_UNIT);
         FoodItemDTO foodItemDTO = foodItemMapper.toDto(updatedFoodItem);
 
         restFoodItemMockMvc
@@ -223,7 +223,7 @@ class FoodItemResourceIT {
         List<FoodItem> foodItemList = foodItemRepository.findAll();
         assertThat(foodItemList).hasSize(databaseSizeBeforeUpdate);
         FoodItem testFoodItem = foodItemList.get(foodItemList.size() - 1);
-        assertThat(testFoodItem.getQuandity()).isEqualTo(UPDATED_QUANDITY);
+        assertThat(testFoodItem.getQuantity()).isEqualTo(UPDATED_QUANTITY);
         assertThat(testFoodItem.getUnit()).isEqualTo(UPDATED_UNIT);
     }
 
@@ -304,7 +304,7 @@ class FoodItemResourceIT {
         FoodItem partialUpdatedFoodItem = new FoodItem();
         partialUpdatedFoodItem.setId(foodItem.getId());
 
-        partialUpdatedFoodItem.quandity(UPDATED_QUANDITY).unit(UPDATED_UNIT);
+        partialUpdatedFoodItem.quantity(UPDATED_QUANTITY).unit(UPDATED_UNIT);
 
         restFoodItemMockMvc
             .perform(
@@ -318,7 +318,7 @@ class FoodItemResourceIT {
         List<FoodItem> foodItemList = foodItemRepository.findAll();
         assertThat(foodItemList).hasSize(databaseSizeBeforeUpdate);
         FoodItem testFoodItem = foodItemList.get(foodItemList.size() - 1);
-        assertThat(testFoodItem.getQuandity()).isEqualTo(UPDATED_QUANDITY);
+        assertThat(testFoodItem.getQuantity()).isEqualTo(UPDATED_QUANTITY);
         assertThat(testFoodItem.getUnit()).isEqualTo(UPDATED_UNIT);
     }
 
@@ -334,7 +334,7 @@ class FoodItemResourceIT {
         FoodItem partialUpdatedFoodItem = new FoodItem();
         partialUpdatedFoodItem.setId(foodItem.getId());
 
-        partialUpdatedFoodItem.quandity(UPDATED_QUANDITY).unit(UPDATED_UNIT);
+        partialUpdatedFoodItem.quantity(UPDATED_QUANTITY).unit(UPDATED_UNIT);
 
         restFoodItemMockMvc
             .perform(
@@ -348,7 +348,7 @@ class FoodItemResourceIT {
         List<FoodItem> foodItemList = foodItemRepository.findAll();
         assertThat(foodItemList).hasSize(databaseSizeBeforeUpdate);
         FoodItem testFoodItem = foodItemList.get(foodItemList.size() - 1);
-        assertThat(testFoodItem.getQuandity()).isEqualTo(UPDATED_QUANDITY);
+        assertThat(testFoodItem.getQuantity()).isEqualTo(UPDATED_QUANTITY);
         assertThat(testFoodItem.getUnit()).isEqualTo(UPDATED_UNIT);
     }
 
