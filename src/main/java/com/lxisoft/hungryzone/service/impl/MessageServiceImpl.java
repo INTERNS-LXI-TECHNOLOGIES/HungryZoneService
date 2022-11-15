@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,11 +24,14 @@ public class MessageServiceImpl implements MessageService {
 
     private final Logger log = LoggerFactory.getLogger(MessageServiceImpl.class);
 
+    private final SimpMessagingTemplate messagingTemplate;
+
     private final MessageRepository messageRepository;
 
     private final MessageMapper messageMapper;
 
-    public MessageServiceImpl(MessageRepository messageRepository, MessageMapper messageMapper) {
+    public MessageServiceImpl(SimpMessagingTemplate messagingTemplate, MessageRepository messageRepository, MessageMapper messageMapper) {
+        this.messagingTemplate = messagingTemplate;
         this.messageRepository = messageRepository;
         this.messageMapper = messageMapper;
     }
@@ -35,6 +39,7 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public MessageDTO save(MessageDTO messageDTO) {
         log.debug("Request to save Message : {}", messageDTO);
+        messagingTemplate.convertAndSendToUser(messageDTO.getUserLogin(),"/topic/api/messages",messageDTO);
         Message message = messageMapper.toEntity(messageDTO);
         message = messageRepository.save(message);
         return messageMapper.toDto(message);
