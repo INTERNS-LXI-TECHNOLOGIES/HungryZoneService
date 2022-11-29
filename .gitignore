@@ -6,6 +6,9 @@
 /src/test/javascript/coverage/
 
 ######################
+# Profile
+/src/main/resources/config/application-local.*
+######################
 # Node
 ######################
 /node/
