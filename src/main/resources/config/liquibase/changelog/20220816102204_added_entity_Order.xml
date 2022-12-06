@@ -26,7 +26,7 @@
             <column name="order_status" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="donor_id" type="bigint">
+            <column name="food_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <column name="recipient_id" type="bigint">
@@ -35,20 +35,6 @@
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="jhi_order" columnName="order_date" columnDataType="${datetimeType}"/>
-    </changeSet>
-
-    <changeSet id="20220816102204-1-relations" author="jhipster">
-
-        <createTable tableName="rel_jhi_order__food">
-            <column name="food_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="jhi_order_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="jhi_order_id, food_id" tableName="rel_jhi_order__food"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->

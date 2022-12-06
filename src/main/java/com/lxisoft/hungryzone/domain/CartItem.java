@@ -24,7 +24,7 @@ public class CartItem implements Serializable {
     private Integer quantity;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "food", "category", "donor", "orders" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "food", "category", "donor" }, allowSetters = true)
     private Food food;
 
     @ManyToOne

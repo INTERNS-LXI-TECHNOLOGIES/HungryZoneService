@@ -2,9 +2,7 @@ package com.lxisoft.hungryzone.service.dto;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 import javax.validation.constraints.*;
 
 /**
@@ -26,11 +24,9 @@ public class OrderDTO implements Serializable {
     @NotNull
     private String orderStatus;
 
-    private UserExtraDTO donor;
+    private FoodItemDTO food;
 
     private UserExtraDTO recipient;
-
-    private Set<FoodDTO> foods = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -72,12 +68,12 @@ public class OrderDTO implements Serializable {
         this.orderStatus = orderStatus;
     }
 
-    public UserExtraDTO getDonor() {
-        return donor;
+    public FoodItemDTO getFood() {
+        return food;
     }
 
-    public void setDonor(UserExtraDTO donor) {
-        this.donor = donor;
+    public void setFood(FoodItemDTO food) {
+        this.food = food;
     }
 
     public UserExtraDTO getRecipient() {
@@ -86,14 +82,6 @@ public class OrderDTO implements Serializable {
 
     public void setRecipient(UserExtraDTO recipient) {
         this.recipient = recipient;
-    }
-
-    public Set<FoodDTO> getFoods() {
-        return foods;
-    }
-
-    public void setFoods(Set<FoodDTO> foods) {
-        this.foods = foods;
     }
 
     @Override
@@ -126,9 +114,8 @@ public class OrderDTO implements Serializable {
             ", quantity=" + getQuantity() +
             ", unit='" + getUnit() + "'" +
             ", orderStatus='" + getOrderStatus() + "'" +
-            ", donor=" + getDonor() +
+            ", food=" + getFood() +
             ", recipient=" + getRecipient() +
-            ", foods=" + getFoods() +
             "}";
     }
 }

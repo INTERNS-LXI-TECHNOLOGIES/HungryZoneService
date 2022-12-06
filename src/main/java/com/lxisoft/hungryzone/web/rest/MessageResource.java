@@ -15,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -51,11 +50,11 @@ public class MessageResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/messages")
-    public ResponseEntity<MessageDTO> createMessage(@Valid @Payload MessageDTO messageDTO) throws URISyntaxException {
+    public ResponseEntity<MessageDTO> createMessage(@Valid @RequestBody MessageDTO messageDTO) throws URISyntaxException {
         log.debug("REST request to save Message : {}", messageDTO);
-/*        if (messageDTO.getId() != null) {
+        if (messageDTO.getId() != null) {
             throw new BadRequestAlertException("A new message cannot already have an ID", ENTITY_NAME, "idexists");
-        }*/
+        }
         MessageDTO result = messageService.save(messageDTO);
         return ResponseEntity
             .created(new URI("/api/messages/" + result.getId()))

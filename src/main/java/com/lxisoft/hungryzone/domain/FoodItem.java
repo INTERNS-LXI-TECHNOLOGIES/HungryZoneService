@@ -1,6 +1,9 @@
 package com.lxisoft.hungryzone.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -25,6 +28,10 @@ public class FoodItem implements Serializable {
     @NotNull
     @Column(name = "unit", nullable = false)
     private String unit;
+
+    @OneToMany(mappedBy = "food")
+    @JsonIgnoreProperties(value = { "users", "food", "recipient" }, allowSetters = true)
+    private Set<Order> receivers = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -65,6 +72,37 @@ public class FoodItem implements Serializable {
 
     public void setUnit(String unit) {
         this.unit = unit;
+    }
+
+    public Set<Order> getReceivers() {
+        return this.receivers;
+    }
+
+    public void setReceivers(Set<Order> orders) {
+        if (this.receivers != null) {
+            this.receivers.forEach(i -> i.setFood(null));
+        }
+        if (orders != null) {
+            orders.forEach(i -> i.setFood(this));
+        }
+        this.receivers = orders;
+    }
+
+    public FoodItem receivers(Set<Order> orders) {
+        this.setReceivers(orders);
+        return this;
+    }
+
+    public FoodItem addReceiver(Order order) {
+        this.receivers.add(order);
+        order.setFood(this);
+        return this;
+    }
+
+    public FoodItem removeReceiver(Order order) {
+        this.receivers.remove(order);
+        order.setFood(null);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

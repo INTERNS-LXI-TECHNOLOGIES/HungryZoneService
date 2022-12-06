@@ -30,10 +30,10 @@
         <dd>
           <span>{{ order.orderStatus }}</span>
         </dd>
-        <dt><span>Donor</span></dt>
+        <dt><span>Food</span></dt>
         <dd>
-          <div *ngIf="order.donor">
-            <a [routerLink]="['/user-extra', order.donor.id, 'view']">{{ order.donor?.id }}</a>
+          <div *ngIf="order.food">
+            <a [routerLink]="['/food-item', order.food.id, 'view']">{{ order.food?.id }}</a>
           </div>
         </dd>
         <dt><span>Recipient</span></dt>
@@ -41,13 +41,6 @@
           <div *ngIf="order.recipient">
             <a [routerLink]="['/user-extra', order.recipient.id, 'view']">{{ order.recipient?.id }}</a>
           </div>
-        </dd>
-        <dt><span>Food</span></dt>
-        <dd>
-          <span *ngFor="let food of order.foods; let last = last">
-            <a [routerLink]="['/food', food.id, 'view']">{{ food.id }}</a
-            >{{ last ? '' : ', ' }}
-          </span>
         </dd>
       </dl>
 

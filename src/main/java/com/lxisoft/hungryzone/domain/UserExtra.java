@@ -46,15 +46,11 @@ public class UserExtra implements Serializable {
     private Cart cart;
 
     @OneToMany(mappedBy = "donor")
-    @JsonIgnoreProperties(value = { "food", "category", "donor", "orders" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "food", "category", "donor" }, allowSetters = true)
     private Set<Food> foods = new HashSet<>();
 
-    @OneToMany(mappedBy = "donor")
-    @JsonIgnoreProperties(value = { "users", "donor", "recipient", "foods" }, allowSetters = true)
-    private Set<Order> donatedOrders = new HashSet<>();
-
     @OneToMany(mappedBy = "recipient")
-    @JsonIgnoreProperties(value = { "users", "donor", "recipient", "foods" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "users", "food", "recipient" }, allowSetters = true)
     private Set<Order> receivedOrders = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -184,37 +180,6 @@ public class UserExtra implements Serializable {
     public UserExtra removeFood(Food food) {
         this.foods.remove(food);
         food.setDonor(null);
-        return this;
-    }
-
-    public Set<Order> getDonatedOrders() {
-        return this.donatedOrders;
-    }
-
-    public void setDonatedOrders(Set<Order> orders) {
-        if (this.donatedOrders != null) {
-            this.donatedOrders.forEach(i -> i.setDonor(null));
-        }
-        if (orders != null) {
-            orders.forEach(i -> i.setDonor(this));
-        }
-        this.donatedOrders = orders;
-    }
-
-    public UserExtra donatedOrders(Set<Order> orders) {
-        this.setDonatedOrders(orders);
-        return this;
-    }
-
-    public UserExtra addDonatedOrders(Order order) {
-        this.donatedOrders.add(order);
-        order.setDonor(this);
-        return this;
-    }
-
-    public UserExtra removeDonatedOrders(Order order) {
-        this.donatedOrders.remove(order);
-        order.setDonor(null);
         return this;
     }
 

@@ -1,6 +1,6 @@
 import dayjs from 'dayjs/esm';
+import { IFoodItem } from 'app/entities/food-item/food-item.model';
 import { IUserExtra } from 'app/entities/user-extra/user-extra.model';
-import { IFood } from 'app/entities/food/food.model';
 
 export interface IOrder {
   id: number;
@@ -8,9 +8,8 @@ export interface IOrder {
   quantity?: number | null;
   unit?: string | null;
   orderStatus?: string | null;
-  donor?: Pick<IUserExtra, 'id'> | null;
+  food?: Pick<IFoodItem, 'id'> | null;
   recipient?: Pick<IUserExtra, 'id'> | null;
-  foods?: Pick<IFood, 'id'>[] | null;
 }
 
 export type NewOrder = Omit<IOrder, 'id'> & { id: null };

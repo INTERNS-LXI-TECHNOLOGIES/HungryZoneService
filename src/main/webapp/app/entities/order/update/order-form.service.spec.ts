@@ -24,9 +24,8 @@ describe('Order Form Service', () => {
             quantity: expect.any(Object),
             unit: expect.any(Object),
             orderStatus: expect.any(Object),
-            donor: expect.any(Object),
+            food: expect.any(Object),
             recipient: expect.any(Object),
-            foods: expect.any(Object),
           })
         );
       });
@@ -41,9 +40,8 @@ describe('Order Form Service', () => {
             quantity: expect.any(Object),
             unit: expect.any(Object),
             orderStatus: expect.any(Object),
-            donor: expect.any(Object),
+            food: expect.any(Object),
             recipient: expect.any(Object),
-            foods: expect.any(Object),
           })
         );
       });

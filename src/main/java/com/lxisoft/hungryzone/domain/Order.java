@@ -43,21 +43,12 @@ public class Order implements Serializable {
     private Set<Message> users = new HashSet<>();
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "user", "cart", "foods", "donatedOrders", "receivedOrders" }, allowSetters = true)
-    private UserExtra donor;
+    @JsonIgnoreProperties(value = { "receivers" }, allowSetters = true)
+    private FoodItem food;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "user", "cart", "foods", "donatedOrders", "receivedOrders" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user", "cart", "foods", "receivedOrders" }, allowSetters = true)
     private UserExtra recipient;
-
-    @ManyToMany
-    @JoinTable(
-        name = "rel_jhi_order__food",
-        joinColumns = @JoinColumn(name = "jhi_order_id"),
-        inverseJoinColumns = @JoinColumn(name = "food_id")
-    )
-    @JsonIgnoreProperties(value = { "food", "category", "donor", "orders" }, allowSetters = true)
-    private Set<Food> foods = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -157,16 +148,16 @@ public class Order implements Serializable {
         return this;
     }
 
-    public UserExtra getDonor() {
-        return this.donor;
+    public FoodItem getFood() {
+        return this.food;
     }
 
-    public void setDonor(UserExtra userExtra) {
-        this.donor = userExtra;
+    public void setFood(FoodItem foodItem) {
+        this.food = foodItem;
     }
 
-    public Order donor(UserExtra userExtra) {
-        this.setDonor(userExtra);
+    public Order food(FoodItem foodItem) {
+        this.setFood(foodItem);
         return this;
     }
 
@@ -180,31 +171,6 @@ public class Order implements Serializable {
 
     public Order recipient(UserExtra userExtra) {
         this.setRecipient(userExtra);
-        return this;
-    }
-
-    public Set<Food> getFoods() {
-        return this.foods;
-    }
-
-    public void setFoods(Set<Food> foods) {
-        this.foods = foods;
-    }
-
-    public Order foods(Set<Food> foods) {
-        this.setFoods(foods);
-        return this;
-    }
-
-    public Order addFood(Food food) {
-        this.foods.add(food);
-        food.getOrders().add(this);
-        return this;
-    }
-
-    public Order removeFood(Food food) {
-        this.foods.remove(food);
-        food.getOrders().remove(this);
         return this;
     }
 

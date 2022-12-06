@@ -33,7 +33,7 @@ public class Message implements Serializable {
     private String textMessage;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "users", "donor", "recipient", "foods" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "users", "food", "recipient" }, allowSetters = true)
     private Order user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

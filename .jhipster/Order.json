@@ -39,9 +39,9 @@
       "relationshipType": "one-to-many"
     },
     {
-      "otherEntityName": "userExtra",
-      "otherEntityRelationshipName": "donatedOrders",
-      "relationshipName": "donor",
+      "otherEntityName": "foodItem",
+      "otherEntityRelationshipName": "receiver",
+      "relationshipName": "food",
       "relationshipType": "many-to-one"
     },
     {
@@ -49,13 +49,6 @@
       "otherEntityRelationshipName": "receivedOrders",
       "relationshipName": "recipient",
       "relationshipType": "many-to-one"
-    },
-    {
-      "otherEntityName": "food",
-      "otherEntityRelationshipName": "order",
-      "ownerSide": true,
-      "relationshipName": "food",
-      "relationshipType": "many-to-many"
     }
   ],
   "service": "serviceImpl"

@@ -21,6 +21,13 @@
   "name": "FoodItem",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "order",
+      "otherEntityRelationshipName": "food",
+      "relationshipName": "receiver",
+      "relationshipType": "one-to-many"
+    }
+  ],
   "service": "serviceImpl"
 }

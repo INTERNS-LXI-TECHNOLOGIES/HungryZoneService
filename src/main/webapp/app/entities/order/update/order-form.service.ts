@@ -27,7 +27,7 @@ type OrderFormRawValue = FormValueOf<IOrder>;
 
 type NewOrderFormRawValue = FormValueOf<NewOrder>;
 
-type OrderFormDefaults = Pick<NewOrder, 'id' | 'orderDate' | 'foods'>;
+type OrderFormDefaults = Pick<NewOrder, 'id' | 'orderDate'>;
 
 type OrderFormGroupContent = {
   id: FormControl<OrderFormRawValue['id'] | NewOrder['id']>;
@@ -35,9 +35,8 @@ type OrderFormGroupContent = {
   quantity: FormControl<OrderFormRawValue['quantity']>;
   unit: FormControl<OrderFormRawValue['unit']>;
   orderStatus: FormControl<OrderFormRawValue['orderStatus']>;
-  donor: FormControl<OrderFormRawValue['donor']>;
+  food: FormControl<OrderFormRawValue['food']>;
   recipient: FormControl<OrderFormRawValue['recipient']>;
-  foods: FormControl<OrderFormRawValue['foods']>;
 };
 
 export type OrderFormGroup = FormGroup<OrderFormGroupContent>;
@@ -69,9 +68,8 @@ export class OrderFormService {
       orderStatus: new FormControl(orderRawValue.orderStatus, {
         validators: [Validators.required],
       }),
-      donor: new FormControl(orderRawValue.donor),
+      food: new FormControl(orderRawValue.food),
       recipient: new FormControl(orderRawValue.recipient),
-      foods: new FormControl(orderRawValue.foods ?? []),
     });
   }
 
@@ -95,7 +93,6 @@ export class OrderFormService {
     return {
       id: null,
       orderDate: currentTime,
-      foods: [],
     };
   }
 
@@ -112,7 +109,6 @@ export class OrderFormService {
     return {
       ...order,
       orderDate: order.orderDate ? order.orderDate.format(DATE_TIME_FORMAT) : undefined,
-      foods: order.foods ?? [],
     };
   }
 }

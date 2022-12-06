@@ -135,11 +135,10 @@ public class OrderResource {
     /**
      * {@code GET  /orders} : get all the orders.
      *
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of orders in body.
      */
     @GetMapping("/orders")
-    public List<OrderDTO> getAllOrders(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public List<OrderDTO> getAllOrders() {
         log.debug("REST request to get all Orders");
         return orderService.findAll();
     }

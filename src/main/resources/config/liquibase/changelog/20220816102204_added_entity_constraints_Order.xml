@@ -8,28 +8,16 @@
     -->
     <changeSet id="20220816102204-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="donor_id"
+        <addForeignKeyConstraint baseColumnNames="food_id"
                                  baseTableName="jhi_order"
-                                 constraintName="fk_jhi_order__donor_id"
+                                 constraintName="fk_jhi_order__food_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="user_extra"/>
+                                 referencedTableName="food_item"/>
 
         <addForeignKeyConstraint baseColumnNames="recipient_id"
                                  baseTableName="jhi_order"
                                  constraintName="fk_jhi_order__recipient_id"
                                  referencedColumnNames="id"
                                  referencedTableName="user_extra"/>
-
-        <addForeignKeyConstraint baseColumnNames="jhi_order_id"
-                                 baseTableName="rel_jhi_order__food"
-                                 constraintName="fk_rel_jhi_order__food__jhi_order_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="jhi_order"/>
-
-        <addForeignKeyConstraint baseColumnNames="food_id"
-                                 baseTableName="rel_jhi_order__food"
-                                 constraintName="fk_rel_jhi_order__food__food_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="food"/>
     </changeSet>
 </databaseChangeLog>

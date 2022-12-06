@@ -70,7 +70,7 @@ relationship ManyToOne {
 }
 
 relationship ManyToOne {
-	Order{donor} to UserExtra{donatedOrders}
+	Order{food} to FoodItem{receiver}
 }
 
 relationship ManyToOne {
@@ -81,9 +81,6 @@ relationship OneToMany {
     Order{user} to  Message{user}
 }
 
-relationship ManyToMany {
-	Order to Food
-}
 
 dto * with mapstruct
 service all with serviceImpl

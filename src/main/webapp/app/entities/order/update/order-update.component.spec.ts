@@ -9,10 +9,10 @@ import { of, Subject, from } from 'rxjs';
 import { OrderFormService } from './order-form.service';
 import { OrderService } from '../service/order.service';
 import { IOrder } from '../order.model';
+import { IFoodItem } from 'app/entities/food-item/food-item.model';
+import { FoodItemService } from 'app/entities/food-item/service/food-item.service';
 import { IUserExtra } from 'app/entities/user-extra/user-extra.model';
 import { UserExtraService } from 'app/entities/user-extra/service/user-extra.service';
-import { IFood } from 'app/entities/food/food.model';
-import { FoodService } from 'app/entities/food/service/food.service';
 
 import { OrderUpdateComponent } from './order-update.component';
 
@@ -22,8 +22,8 @@ describe('Order Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let orderFormService: OrderFormService;
   let orderService: OrderService;
+  let foodItemService: FoodItemService;
   let userExtraService: UserExtraService;
-  let foodService: FoodService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -46,23 +46,43 @@ describe('Order Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     orderFormService = TestBed.inject(OrderFormService);
     orderService = TestBed.inject(OrderService);
+    foodItemService = TestBed.inject(FoodItemService);
     userExtraService = TestBed.inject(UserExtraService);
-    foodService = TestBed.inject(FoodService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
+    it('Should call FoodItem query and add missing value', () => {
+      const order: IOrder = { id: 456 };
+      const food: IFoodItem = { id: 40397 };
+      order.food = food;
+
+      const foodItemCollection: IFoodItem[] = [{ id: 97274 }];
+      jest.spyOn(foodItemService, 'query').mockReturnValue(of(new HttpResponse({ body: foodItemCollection })));
+      const additionalFoodItems = [food];
+      const expectedCollection: IFoodItem[] = [...additionalFoodItems, ...foodItemCollection];
+      jest.spyOn(foodItemService, 'addFoodItemToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ order });
+      comp.ngOnInit();
+
+      expect(foodItemService.query).toHaveBeenCalled();
+      expect(foodItemService.addFoodItemToCollectionIfMissing).toHaveBeenCalledWith(
+        foodItemCollection,
+        ...additionalFoodItems.map(expect.objectContaining)
+      );
+      expect(comp.foodItemsSharedCollection).toEqual(expectedCollection);
+    });
+
     it('Should call UserExtra query and add missing value', () => {
       const order: IOrder = { id: 456 };
-      const donor: IUserExtra = { id: 16886 };
-      order.donor = donor;
-      const recipient: IUserExtra = { id: 47472 };
+      const recipient: IUserExtra = { id: 16886 };
       order.recipient = recipient;
 
-      const userExtraCollection: IUserExtra[] = [{ id: 7594 }];
+      const userExtraCollection: IUserExtra[] = [{ id: 47472 }];
       jest.spyOn(userExtraService, 'query').mockReturnValue(of(new HttpResponse({ body: userExtraCollection })));
-      const additionalUserExtras = [donor, recipient];
+      const additionalUserExtras = [recipient];
       const expectedCollection: IUserExtra[] = [...additionalUserExtras, ...userExtraCollection];
       jest.spyOn(userExtraService, 'addUserExtraToCollectionIfMissing').mockReturnValue(expectedCollection);
 
@@ -77,43 +97,18 @@ describe('Order Management Update Component', () => {
       expect(comp.userExtrasSharedCollection).toEqual(expectedCollection);
     });
 
-    it('Should call Food query and add missing value', () => {
-      const order: IOrder = { id: 456 };
-      const foods: IFood[] = [{ id: 96835 }];
-      order.foods = foods;
-
-      const foodCollection: IFood[] = [{ id: 40519 }];
-      jest.spyOn(foodService, 'query').mockReturnValue(of(new HttpResponse({ body: foodCollection })));
-      const additionalFoods = [...foods];
-      const expectedCollection: IFood[] = [...additionalFoods, ...foodCollection];
-      jest.spyOn(foodService, 'addFoodToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ order });
-      comp.ngOnInit();
-
-      expect(foodService.query).toHaveBeenCalled();
-      expect(foodService.addFoodToCollectionIfMissing).toHaveBeenCalledWith(
-        foodCollection,
-        ...additionalFoods.map(expect.objectContaining)
-      );
-      expect(comp.foodsSharedCollection).toEqual(expectedCollection);
-    });
-
     it('Should update editForm', () => {
       const order: IOrder = { id: 456 };
-      const donor: IUserExtra = { id: 16334 };
-      order.donor = donor;
-      const recipient: IUserExtra = { id: 45154 };
+      const food: IFoodItem = { id: 34808 };
+      order.food = food;
+      const recipient: IUserExtra = { id: 7594 };
       order.recipient = recipient;
-      const food: IFood = { id: 33457 };
-      order.foods = [food];
 
       activatedRoute.data = of({ order });
       comp.ngOnInit();
 
-      expect(comp.userExtrasSharedCollection).toContain(donor);
+      expect(comp.foodItemsSharedCollection).toContain(food);
       expect(comp.userExtrasSharedCollection).toContain(recipient);
-      expect(comp.foodsSharedCollection).toContain(food);
       expect(comp.order).toEqual(order);
     });
   });
@@ -187,6 +182,16 @@ describe('Order Management Update Component', () => {
   });
 
   describe('Compare relationships', () => {
+    describe('compareFoodItem', () => {
+      it('Should forward to foodItemService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(foodItemService, 'compareFoodItem');
+        comp.compareFoodItem(entity, entity2);
+        expect(foodItemService.compareFoodItem).toHaveBeenCalledWith(entity, entity2);
+      });
+    });
+
     describe('compareUserExtra', () => {
       it('Should forward to userExtraService', () => {
         const entity = { id: 123 };
@@ -194,16 +199,6 @@ describe('Order Management Update Component', () => {
         jest.spyOn(userExtraService, 'compareUserExtra');
         comp.compareUserExtra(entity, entity2);
         expect(userExtraService.compareUserExtra).toHaveBeenCalledWith(entity, entity2);
-      });
-    });
-
-    describe('compareFood', () => {
-      it('Should forward to foodService', () => {
-        const entity = { id: 123 };
-        const entity2 = { id: 456 };
-        jest.spyOn(foodService, 'compareFood');
-        comp.compareFood(entity, entity2);
-        expect(foodService.compareFood).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

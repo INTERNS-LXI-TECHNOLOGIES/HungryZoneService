@@ -67,17 +67,10 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_donor">Donor</label>
-          <select
-            class="form-control"
-            id="field_donor"
-            data-cy="donor"
-            name="donor"
-            formControlName="donor"
-            [compareWith]="compareUserExtra"
-          >
+          <label class="form-label" for="field_food">Food</label>
+          <select class="form-control" id="field_food" data-cy="food" name="food" formControlName="food" [compareWith]="compareFoodItem">
             <option [ngValue]="null"></option>
-            <option [ngValue]="userExtraOption" *ngFor="let userExtraOption of userExtrasSharedCollection">{{ userExtraOption.id }}</option>
+            <option [ngValue]="foodItemOption" *ngFor="let foodItemOption of foodItemsSharedCollection">{{ foodItemOption.id }}</option>
           </select>
         </div>
 
@@ -93,21 +86,6 @@
           >
             <option [ngValue]="null"></option>
             <option [ngValue]="userExtraOption" *ngFor="let userExtraOption of userExtrasSharedCollection">{{ userExtraOption.id }}</option>
-          </select>
-        </div>
-
-        <div class="row mb-3">
-          <label for="field_foods">Food</label>
-          <select
-            class="form-control"
-            id="field_foods"
-            data-cy="food"
-            multiple
-            name="foods"
-            formControlName="foods"
-            [compareWith]="compareFood"
-          >
-            <option [ngValue]="foodOption" *ngFor="let foodOption of foodsSharedCollection">{{ foodOption.id }}</option>
           </select>
         </div>
       </div>

@@ -3,8 +3,6 @@ package com.lxisoft.hungryzone.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -36,6 +34,7 @@ public class Food implements Serializable {
     @Column(name = "image_url")
     private String imageUrl;
 
+    @JsonIgnoreProperties(value = { "receivers" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
     private FoodItem food;
@@ -45,12 +44,8 @@ public class Food implements Serializable {
     private Category category;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "user", "cart", "foods", "donatedOrders", "receivedOrders" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user", "cart", "foods", "receivedOrders" }, allowSetters = true)
     private UserExtra donor;
-
-    @ManyToMany(mappedBy = "foods")
-    @JsonIgnoreProperties(value = { "users", "donor", "recipient", "foods" }, allowSetters = true)
-    private Set<Order> orders = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -155,37 +150,6 @@ public class Food implements Serializable {
 
     public Food donor(UserExtra userExtra) {
         this.setDonor(userExtra);
-        return this;
-    }
-
-    public Set<Order> getOrders() {
-        return this.orders;
-    }
-
-    public void setOrders(Set<Order> orders) {
-        if (this.orders != null) {
-            this.orders.forEach(i -> i.removeFood(this));
-        }
-        if (orders != null) {
-            orders.forEach(i -> i.addFood(this));
-        }
-        this.orders = orders;
-    }
-
-    public Food orders(Set<Order> orders) {
-        this.setOrders(orders);
-        return this;
-    }
-
-    public Food addOrder(Order order) {
-        this.orders.add(order);
-        order.getFoods().add(this);
-        return this;
-    }
-
-    public Food removeOrder(Order order) {
-        this.orders.remove(order);
-        order.getFoods().remove(this);
         return this;
     }
 

@@ -53,12 +53,6 @@
     },
     {
       "otherEntityName": "order",
-      "otherEntityRelationshipName": "donor",
-      "relationshipName": "donatedOrders",
-      "relationshipType": "one-to-many"
-    },
-    {
-      "otherEntityName": "order",
       "otherEntityRelationshipName": "recipient",
       "relationshipName": "receivedOrders",
       "relationshipType": "one-to-many"
